@@ -1,0 +1,31 @@
+{
+  "name": "@zeppos/zml",
+  "version": "0.0.1",
+  "description": "A Mini Library of ZeppOS MiniApp",
+  "zeppos": true,
+  "types": "./zml.d.ts",
+  "exports": {
+    "./base-app": "./dist/zml-app.js",
+    "./base-page": "./dist/zml-page.js",
+    "./base-side": "./dist/zml-side.js"
+  },
+  "scripts": {
+    "watch": "rollup -w -c rollup.config.mjs",
+    "build": "NODE_ENV=production rollup -c rollup.config.mjs",
+    "format": "prettier src -write"
+  },
+  "files": [
+    "./dist",
+    "./zml.d.ts"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "prettier": "^3.0.2",
+    "rollup": "^3.28.1"
+  }
+}
