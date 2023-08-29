@@ -70,4 +70,52 @@ export default [
       commonjs(),
     ],
   },
+  {
+    input: 'src/core/device/base-app.js',
+    output: {
+      file: 'dist/zml-app.debug.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/device/base-page.js',
+    output: {
+      file: 'dist/zml-page.debug.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/side/index.js',
+    output: {
+      file: 'dist/zml-side.debug.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
 ]
