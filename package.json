@@ -13,6 +13,10 @@
     "./base-side": "./dist/zml-side.js",
     "./base-side.debug": "./dist/zml-side.debug.js"
   },
+  "files": [
+    "dist",
+    "zml.d.ts"
+  ],
   "scripts": {
     "watch": "rollup -w -c rollup.config.mjs",
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
