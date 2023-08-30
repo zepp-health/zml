@@ -3,23 +3,23 @@
   "version": "0.0.1",
   "description": "A Mini Library of ZeppOS MiniApp",
   "zeppos": true,
-  "types": "./zml.d.ts",
+  "typings": "./zml.d.ts",
   "exports": {
+    ".": null,
     "./base-app": "./dist/zml-app.js",
+    "./base-app.debug": "./dist/zml-app.debug.js",
     "./base-page": "./dist/zml-page.js",
-    "./base-side": "./dist/zml-side.js"
+    "./base-page.debug": "./dist/zml-page.debug.js",
+    "./base-side": "./dist/zml-side.js",
+    "./base-side.debug": "./dist/zml-side.debug.js"
   },
   "scripts": {
     "watch": "rollup -w -c rollup.config.mjs",
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
     "format": "prettier src -write"
   },
-  "files": [
-    "./dist",
-    "./zml.d.ts"
-  ],
-  "author": "",
-  "license": "ISC",
+  "author": "htoooth",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.1",

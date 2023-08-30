@@ -1,9 +1,8 @@
 import { isHmAppDefined } from '../../shared/js-module'
 
-
 let _r = null
 
-if (typeof __$$R$$__ !== undefined) {
+if (typeof __$$R$$__ !== 'undefined') {
   _r = __$$R$$__
 } else {
   _r = () => {}
