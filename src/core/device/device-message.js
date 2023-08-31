@@ -16,6 +16,6 @@ export function createDeviceMessage() {
 }
 
 export function getDeviceMessage() {
-  const { device } = getApp()._options.globalData
-  return device
+  const { messaging } = getApp()._options.globalData
+  return messaging
 }

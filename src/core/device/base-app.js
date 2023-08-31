@@ -7,10 +7,10 @@ export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other }) {
     globalData,
     ...other,
     onCreate(...opts) {
-      const device = createDeviceMessage()
-      this.globalData.device = device
+      const messaging = createDeviceMessage()
+      this.globalData.messaging = messaging
 
-      device
+      messaging
         .onCall(this.onCall?.bind(this))
         .onRequest(this.onRequest?.bind(this))
         .connect()
@@ -20,14 +20,14 @@ export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other }) {
       onCreate?.apply(this, opts)
     },
     onDestroy(...opts) {
-      const device = this.globalData.device
-      device.offOnCall().offOnRequest().disConnect()
+      const messaging = this.globalData.messaging
+      messaging.offOnCall().offOnRequest().disConnect()
 
       fileTransferLib.offFile()
       onDestroy?.apply(this, opts)
     },
     httpRequest(data) {
-      return device.request({
+      return messaging.request({
         method: 'http.request',
         params: data,
       })

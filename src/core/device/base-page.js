@@ -2,7 +2,7 @@ import { getDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 
 export function BasePage({ state = {}, onInit, onDestroy, ...other }) {
-  const device = getDeviceMessage()
+  const messaging = getDeviceMessage()
 
   return {
     state,
@@ -10,7 +10,7 @@ export function BasePage({ state = {}, onInit, onDestroy, ...other }) {
     onInit(...opts) {
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
-      device.onCall(this._onCall).onRequest(this._onRequest)
+      messaging.onCall(this._onCall).onRequest(this._onRequest)
 
       if (this.onReceivedFile) {
         this._onReceivedFile = this.onReceivedFile?.bind(this)
@@ -21,11 +21,11 @@ export function BasePage({ state = {}, onInit, onDestroy, ...other }) {
     },
     onDestroy(...opts) {
       if (this._onCall) {
-        device.offOnCall(this._onCall)
+        messaging.offOnCall(this._onCall)
       }
 
       if (this._onRequest) {
-        device.offOnRequest(this._onRequest)
+        messaging.offOnRequest(this._onRequest)
       }
 
       if (this._onReceivedFile) {
@@ -35,16 +35,16 @@ export function BasePage({ state = {}, onInit, onDestroy, ...other }) {
       onDestroy?.apply(this, opts)
     },
     request(data) {
-      return device.request(data)
+      return messaging.request(data)
     },
     httpRequest(data) {
-      return device.request({
+      return messaging.request({
         method: 'http.request',
         params: data,
       })
     },
     call(data) {
-      return device.call(data)
+      return messaging.call(data)
     },
     sendFile(path, opts) {
       return fileTransferLib.sendFile(path, opts)
