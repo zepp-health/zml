@@ -1,7 +1,7 @@
 import { getDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 
-export function BasePage({ state, onInit, onDestroy, ...other }) {
+export function BasePage({ state = {}, onInit, onDestroy, ...other }) {
   const device = getDeviceMessage()
 
   return {
@@ -17,7 +17,7 @@ export function BasePage({ state, onInit, onDestroy, ...other }) {
         fileTransferLib.onFile(this._onReceivedFile)
       }
 
-      onInit && onInit.apply(this, opts)
+      onInit?.apply(this, opts)
     },
     onDestroy(...opts) {
       if (this._onCall) {
@@ -32,7 +32,7 @@ export function BasePage({ state, onInit, onDestroy, ...other }) {
         fileTransferLib.offFile(this._onReceivedFile)
       }
 
-      onDestroy && onDestroy.apply(this, opts)
+      onDestroy?.apply(this, opts)
     },
     request(data) {
       return device.request(data)

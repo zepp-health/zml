@@ -2,11 +2,10 @@ import '../../shared/device-polyfill'
 import { createDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 
-export function BaseApp(initParams) {
+export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other }) {
   return {
-    globalData: {
-    },
-    ...initParams,
+    globalData,
+    ...other,
     onCreate(...opts) {
       const device = createDeviceMessage()
       this.globalData.device = device
@@ -18,14 +17,14 @@ export function BaseApp(initParams) {
 
       fileTransferLib.onFile(this.onReceivedFile?.bind(this))
 
-      initParams?.onCreate.apply(this, opts)
+      onCreate?.apply(this, opts)
     },
     onDestroy(...opts) {
       const device = this.globalData.device
       device.offOnCall().offOnRequest().disConnect()
 
       fileTransferLib.offFile()
-      initParams?.onDestroy.apply(this, opts)
+      onDestroy?.apply(this, opts)
     },
     httpRequest(data) {
       return device.request({

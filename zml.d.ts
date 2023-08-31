@@ -10,7 +10,12 @@ interface InstanceMethod {
     headers?: Record<string, string>
     body?: Record<string, string>
     timeout?: number
-  }) => Promise<T>
+  }) => Promise<{
+    status: number
+    statusText: string
+    headers: Record<string, any>
+    body: any
+  }>
 
   fetch: <T>(data: {
     url: string

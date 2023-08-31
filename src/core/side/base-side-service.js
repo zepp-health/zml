@@ -14,10 +14,18 @@ function addBaseURL(opts) {
   return params
 }
 
-export function BaseSideService(initParams) {
+const logger = Logger.getLogger(sideService.appInfo.app.appName)
+
+export function BaseSideService({
+  state = {},
+  onInit,
+  onRun,
+  onDestroy,
+  ...other
+}) {
   return {
-    state: {},
-    ...initParams,
+    state,
+    ...other,
     onInit(opts) {
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
@@ -30,19 +38,15 @@ export function BaseSideService(initParams) {
       settingsLib.onChange(this._onSettingsChange)
 
       device.start()
-      initParams.onInit?.apply(this, opts)
-      Object.entries(initParams).forEach(([k, v]) => {
-        if (k === 'onInit') {
-          return
-        }
-
+      onInit?.apply(this, opts)
+      Object.entries(other).forEach(([k, v]) => {
         if (typeof k === 'string' && k.startsWith('onInit')) {
           v.apply(this, opts)
         }
       })
 
       if (typeof sideService !== 'undefined') {
-        console.log('sideService.launchArgs=>', sideService.launchArgs)
+        logger.log('sideService start launchArgs=>', sideService.launchArgs)
         if (sideService.launchReasons.settingsChanged) {
           this._onSettingsChange(sideService.launchArgs)
         }
@@ -53,12 +57,8 @@ export function BaseSideService(initParams) {
       }
     },
     onRun(opts) {
-      initParams.onRun?.apply(this, opts)
-      Object.entries(initParams).forEach(([k, v]) => {
-        if (k === 'onRun') {
-          return
-        }
-
+      onRun?.apply(this, opts)
+      Object.entries(other).forEach(([k, v]) => {
         if (typeof k === 'string' && k.startsWith('onRun')) {
           v.apply(this, opts)
         }
@@ -83,17 +83,13 @@ export function BaseSideService(initParams) {
         settingsLib.offChange(this._onSettingsChange)
       }
 
-      Object.entries(initParams).forEach(([k, v]) => {
-        if (k === 'onDestroy') {
-          return
-        }
-
+      Object.entries(other).forEach(([k, v]) => {
         if (typeof k === 'string' && k.startsWith('onDestroy')) {
           v.apply(this, opts)
         }
       })
 
-      initParams.onDestroy?.apply(this, opts)
+      onDestroy?.apply(this, opts)
     },
     request(data) {
       return device.request(data)
