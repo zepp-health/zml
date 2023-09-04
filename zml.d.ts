@@ -67,7 +67,9 @@ declare module '@zeppos/zml/base-app' {
 
   interface Data<D extends DataOption> {
     _options: this
-    globalData: D
+    globalData: D & {
+      messaging: any
+    }
   }
 
   type DataOption = Record<string, any>
