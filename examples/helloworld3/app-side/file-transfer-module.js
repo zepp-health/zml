@@ -32,17 +32,4 @@ export const fileTransferModule = {
 
     return task
   },
-  testTransferFile3() {
-    const task = this.sendFile('data://download/test.mp3', { type: 'mp3' })
-
-    task.on("progress", (e) => {
-      logger.log('task3 progress', e)
-    })
-
-    task.on("change", (e) => {
-      logger.log('task3 change', e)
-    })
-
-    return task
-  },
 }

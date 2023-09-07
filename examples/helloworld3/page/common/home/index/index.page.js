@@ -1,6 +1,7 @@
 import { BasePage } from '@zeppos/zml/base-page'
 import { log as logger } from '@zos/utils'
 import { layout } from 'zosLoader:./index.[pf].layout.js'
+import { push } from '@zos/router'
 
 Page(
   BasePage(

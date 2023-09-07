@@ -31,20 +31,7 @@ Page(
           logger.error('error=>%j', error)
         })
     },
-    patchAsync() {
-      return this.httpRequest({
-        method: 'patch',
-        url: 'http://10.16.20.146:9092/patch',
-      })
-        .then((result) => {
-          layout.updateTxtSuccess(JSON.stringify(result.body))
-          logger.log('result=>%j', result)
-        })
-        .catch((error) => {
-          layout.updateTxtError(error.message)
-          logger.error('error=>%j', error)
-        })
-    },
+  
     onDestroy() {
       logger.log('page onDestroy invoked')
     },

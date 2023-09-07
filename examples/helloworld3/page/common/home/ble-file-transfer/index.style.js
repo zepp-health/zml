@@ -17,7 +17,7 @@ export const TEXT_STYLE = {
 }
 
 export const BTN_STYLE = {
-  text: '发送传输文件',
+  text: 'send file',
   x: px(42),
   y: px(300),
   w: DEVICE_WIDTH - px(42) * 2,
@@ -29,7 +29,7 @@ export const BTN_STYLE = {
 }
 
 export const BTN_STYLE2 = {
-  text: '取消传输文件',
+  text: 'cancel',
   x: px(42),
   y: px(350),
   w: DEVICE_WIDTH - px(42) * 2,
@@ -54,7 +54,7 @@ export const PROGRESS_GROUP = {
 }
 
 export const FILE_NAME_STYLE = {
-  text: '正在接收文件',
+  text: 'receiving',
   x: px(0),
   y: px(0),
   w: px(150),
@@ -64,6 +64,7 @@ export const FILE_NAME_STYLE = {
   align_h: ui.align.CENTER_H,
   text_style: ui.text_style.WRAP,
 }
+
 export const PROGRESS_TEXT_STYLE = {
   text: '0',
   x: px(150),

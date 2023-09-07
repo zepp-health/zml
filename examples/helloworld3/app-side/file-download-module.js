@@ -55,35 +55,4 @@ export const fileDownloadModule = {
 
     return task
   },
-
-  testDownloadFile3() {
-    const task = this.download(
-      encodeURI(
-        'https://slider.kz/2000232612_456245272/196/cs2-7v4/s/v1/acmp/m7CWx3R6HsWGOnUO4BW0T-wF_Un-dzTdg46AVn0w0fs8cUG0IiY3gunS6SPYDM9k5xU3I6qu_3P3_CMNNL7UXh1kw3jfBe3SUFnpMcRonEE3P3axDRD5CPhlCgZ7OFeFo7AHymT-Z03s-yF3X8aiAzWpdhPkPol2B5gruQ6ca89hcLiYig/Feid & Young Miko - Classy 101.mp3',
-      ),
-      {
-        headers: {},
-        timeout: 10 * 60 * 1000,
-        filePath: 'test.mp3',
-      },
-    )
-
-    task.onSuccess = function (data) {
-      logger.log('downloadTest3 success', data)
-    }
-
-    task.onFail = function (data) {
-      logger.log('downloadTest3 fail', data)
-    }
-
-    task.onComplete = function () {
-      logger.log('downloadTest3 complete')
-    }
-
-    task.onProgress = function (data) {
-      logger.log('downloadTest3 progress', data)
-    }
-
-    return task
-  },
 }

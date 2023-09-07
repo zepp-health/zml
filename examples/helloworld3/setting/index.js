@@ -11,7 +11,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '清空设置数据',
+            label: 'clear data',
             // color: 'secondary',
             color: 'default',
             onClick: () => {
@@ -28,7 +28,7 @@ AppSettingsPage({
             textAlign: 'center',
           },
         },
-        [Text({}, ['测试蓝牙'])],
+        [Text({}, ['network download file'])],
       ),
       View(
         {
@@ -39,51 +39,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '测试蓝牙接口',
-            color: 'primary',
-            onClick: () => {
-              props.settingsStorage.setItem('ble:start', true)
-            },
-          }),
-        ],
-      ),
-      View(
-        {
-          style: {
-            marginTop: '10px',
-            textAlign: 'center',
-          },
-        },
-        [
-          Button({
-            label: '测试拉起小程序首页',
-            color: 'primary',
-            onClick: () => {
-              props.settingsStorage.setItem('app:start', true)
-            },
-          }),
-        ],
-      ),
-      ////////////////////////////////////////////////////////////////
-      View(
-        {
-          style: {
-            marginTop: '50px',
-            textAlign: 'center',
-          },
-        },
-        [Text({}, ['网络下载文件'])],
-      ),
-      View(
-        {
-          style: {
-            marginTop: '10px',
-            textAlign: 'center',
-          },
-        },
-        [
-          Button({
-            label: '开始下载文件',
+            label: 'start',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('downloadFile:start', true)
@@ -100,7 +56,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '停止下载文件',
+            label: 'stop',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('downloadFile:stop', true)
@@ -116,7 +72,7 @@ AppSettingsPage({
             textAlign: 'center',
           },
         },
-        [Text({}, ['图片转换'])],
+        [Text({}, ['image convert'])],
       ),
       View(
         {
@@ -127,7 +83,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '开始转换图片',
+            label: 'start',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('convertImage:start', true)
@@ -143,7 +99,7 @@ AppSettingsPage({
             textAlign: 'center',
           },
         },
-        [Text({}, ['手机传输文件到设备'])],
+        [Text({}, ['transfer file from mobile to device'])],
       ),
       View(
         {
@@ -154,7 +110,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '开始传输文件',
+            label: 'start',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('sideTransfer:start', true)
@@ -171,7 +127,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '停止传输文件',
+            label: 'stop',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('sideTransfer:stop', true)
@@ -187,7 +143,7 @@ AppSettingsPage({
             textAlign: 'center',
           },
         },
-        [Text({}, ['设备传输文件到手机'])],
+        [Text({}, ['transfer file from device to mobile'])],
       ),
       View(
         {
@@ -198,7 +154,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '开始传输文件',
+            label: 'start',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('deviceTransfer:start', true)
@@ -216,7 +172,7 @@ AppSettingsPage({
         },
         [
           Button({
-            label: '停止传输文件',
+            label: 'stop',
             color: 'primary',
             onClick: () => {
               props.settingsStorage.setItem('deviceTransfer:stop', true)

@@ -5,7 +5,7 @@ import ui from '@zos/ui'
 export const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = getDeviceInfo()
 
 export const BTN_STYLE = {
-  text: '测试蓝牙功能',
+  text: 'test',
   x: px(42),
   y: px(200),
   w: DEVICE_WIDTH - px(42) * 2,

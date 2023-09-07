@@ -13,28 +13,30 @@ export const layout = {
     this.refs.btn2 = ui.createWidget(ui.widget.BUTTON, {
       ...BTN_STYLE,
       y: BTN_STYLE.y + 100,
+      color: 0xff00ff,
+      text: getText('bleRequest'),
       click_func: () => {
         vm.goBlePage()
       },
     })
 
-    this.refs.btn3 = ui.createWidget(ui.widget.BUTTON, {
+    this.refs.btn5 = ui.createWidget(ui.widget.BUTTON, {
       ...BTN_STYLE,
       y: BTN_STYLE.y + 200,
       color: 0xff00ff,
-      text: '测试文件传输',
+      text: getText('httpRequest'),
       click_func: () => {
-        vm.goFilePage()
+        vm.goBleHttp()
       },
     })
 
-    this.refs.btn5 = ui.createWidget(ui.widget.BUTTON, {
+    this.refs.btn3 = ui.createWidget(ui.widget.BUTTON, {
       ...BTN_STYLE,
       y: BTN_STYLE.y + 300,
       color: 0xff00ff,
-      text: '测试蓝牙 http 代理',
+      text: getText('fileTransfer'),
       click_func: () => {
-        vm.goBleHttp()
+        vm.goFilePage()
       },
     })
   },

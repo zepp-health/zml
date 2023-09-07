@@ -1,4 +1,4 @@
-import { TEXT_STYLE, BTN_STYLE, BTN_STYLE2 } from './index.style'
+import { TEXT_STYLE, BTN_STYLE } from './index.style'
 import ui from '@zos/ui'
 
 export const layout = {
@@ -18,17 +18,6 @@ export const layout = {
         vm.readAsync()
       },
     })
-
-    // this.refs.btn2 = ui.createWidget(ui.widget.BUTTON, {
-    //   ...BTN_STYLE2,
-    //   click_func: () => {
-    //     this.refs.btn2.setProperty(ui.prop.MORE, {
-    //       color: 0xffffff,
-    //     })
-
-    //     vm.patchAsync()
-    //   },
-    // })
   },
 
   updateTxtSuccess(text) {

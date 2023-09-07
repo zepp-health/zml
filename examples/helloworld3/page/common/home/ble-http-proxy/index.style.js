@@ -17,21 +17,9 @@ export const TEXT_STYLE = {
 }
 
 export const BTN_STYLE = {
-  text: '发送请求',
+  text: 'send request',
   x: px(42),
   y: px(200),
-  w: DEVICE_WIDTH - px(42) * 2,
-  h: px(100),
-  color: 0xff00ff,
-  text_size: px(36),
-  align_h: ui.align.CENTER_H,
-  text_style: ui.text_style.WRAP,
-}
-
-export const BTN_STYLE2 = {
-  text: '发送 patch 请求',
-  x: px(42),
-  y: px(300),
   w: DEVICE_WIDTH - px(42) * 2,
   h: px(100),
   color: 0xff00ff,
