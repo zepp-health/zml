@@ -2,7 +2,7 @@
   "configVersion": "v3",
   "app": {
     "appId": 27233,
-    "appName": "helloworld",
+    "appName": "helloworld-httpRequest",
     "appType": "app",
     "version": {
       "code": 1,
@@ -12,7 +12,7 @@
     "vender": "zepp",
     "description": "helloworld"
   },
-  "permissions": ["data:os.device.info", "device:os.ble"],
+  "permissions": ["data:os.device.info"],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0",
@@ -26,17 +26,11 @@
       "module": {
         "page": {
           "pages": [
-            "page/common/home/index/index.page",
-            "page/common/home/ble-file-transfer/index.page",
-            "page/common/home/ble-data-send/index.page",
-            "page/common/home/ble-http-proxy/index.page"
+            "page/index/index.page"
           ]
         },
         "app-side": {
           "path": "app-side/index"
-        },
-        "setting": {
-          "path": "setting/index"
         }
       },
       "platforms": [

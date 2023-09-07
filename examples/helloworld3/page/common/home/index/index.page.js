@@ -1,13 +1,6 @@
 import { BasePage } from '@zeppos/zml/base-page'
-import { log as Logger } from '@zos/utils'
+import { log as logger } from '@zos/utils'
 import { layout } from 'zosLoader:./index.[pf].layout.js'
-import { setLaunchAppTimeout, push, exit } from '@zos/router'
-import { Time } from '@zos/sensor'
-import { getPackageInfo } from '@zos/app'
-
-const time = new Time()
-
-const logger = Logger.getLogger('index.page')
 
 Page(
   BasePage(
