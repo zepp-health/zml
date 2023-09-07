@@ -1,16 +1,14 @@
 # ZML
 
-[中文版 README](./README_CN.md)
+一个为 Zepp OS 小程序的开发迷你开发库。目前集成了网络请求,通信等功能。
 
-A mini development library for Zepp OS mini programs. Currently integrates network requests, communication and other functions.
-
-## Usage
+## 使用
 
 ### httpRequest API
 
-Use http requests directly
+直接使用 http 请求
 
-#### Use in app.js
+#### app.js 中使用
 
 ```javascript
 import { BaseApp } from '@zeppos/zml/base-app'
@@ -24,7 +22,7 @@ App(
 )
 ```
 
-#### Use in page module
+#### page 模块中使用
 
 ```javascript
 import { BasePage } from '@zeppos/zml/base-page'
@@ -59,7 +57,7 @@ Page(
 )
 ```
 
-#### Use in sideService module
+#### sideService 模块中使用
 
 ```javascript
 import { BaseSideService } from '@zeppos/zml/base-side'
@@ -67,16 +65,16 @@ import { BaseSideService } from '@zeppos/zml/base-side'
 AppSideService(BaseSideService())
 ```
 
-See [helloworld](./examples/helloworld1/)
+查看 [helloworld](./examples/helloworld1/)
 
 ### request APIs
 
-APIs related to communication with the phone
+跟手机通信相关api
 
-1. Use request, call to send data
-2. Use onRequest, onCall to receive data
+1. 使用 request, call 发送数据
+2. 使用 onRequest, onCall 接受数据
 
-#### Use in app.js
+#### app.js 中使用
 
 ```javascript
 import { BaseApp } from '@zeppos/zml/base-app'
@@ -90,7 +88,7 @@ App(
 )
 ```
 
-#### Use in page module
+#### page 模块中使用
 
 ```javascript
 import { BasePage } from '@zeppos/zml/base-page'
@@ -119,6 +117,7 @@ Page(
           console.error('error=>', error)
         })
     },
+
     notifyMobile() {
       this.call({
         method: 'your.method3',
@@ -128,6 +127,7 @@ Page(
         },
       })
     },
+
     onRequest(req, res) {
       // need reply
       // node style callback
@@ -143,13 +143,15 @@ Page(
         res('error happened')
       }
     },
+
     onCall(data) {
-      // no reply
-      if (req.method === 'your.method4') {
-        // do something
-        console.log('req=>', JSON.string(data))
-      }
+     // no reply
+     if (req.method === 'your.method4') {
+       // do something
+       console.log('req=>', JSON.string(data))
+     }
     },
+
     onDestroy() {
       console.log('page onDestroy invoked')
     },
@@ -157,7 +159,7 @@ Page(
 )
 ```
 
-#### Use in sideService module
+#### sideService 模块中使用
 
 ```javascript
 import { BaseSideService } from '@zeppos/zml/base-side'
@@ -187,6 +189,7 @@ AppSideService(
           console.error('error=>', error)
         })
     },
+
     notifyDevice() {
       this.call({
         method: 'your.method4',
@@ -196,6 +199,7 @@ AppSideService(
         }
       })
     },
+
     onRequest(req, res) {
       // need reply
       // node style callback
@@ -210,6 +214,7 @@ AppSideService(
         res('error happened')
       }
     },
+
     onCall(data) {
       onCall(data) {
       // no reply
@@ -225,9 +230,10 @@ AppSideService(
   }),
 )
 ```
-See [helloworld2](./examples/helloworld2/)
+
+查看 [helloworld2](./examples/helloworld2/)
 
 
-### More complex example
+### 更复杂的例子
 
-See [helloworld3](./examples/helloworld3/)
+查看 [helloworld3](./examples/helloworld3/)

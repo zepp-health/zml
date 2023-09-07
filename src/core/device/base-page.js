@@ -1,7 +1,7 @@
 import { getDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 
-export function BasePage({ state = {}, onInit, onDestroy, ...other }) {
+export function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
   const messaging = getDeviceMessage()
 
   return {

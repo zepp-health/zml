@@ -98,6 +98,7 @@ export function wrapperMessage(messageBuilder) {
       return this
     },
     disConnect() {
+      this.cancelAllRequest()
       this.offOnRequest()
       this.offOnCall()
       messageBuilder.disConnect(() => {
@@ -116,6 +117,9 @@ export function wrapperMessage(messageBuilder) {
       return this
     },
     stop() {
+      this.cancelAllRequest()
+      this.offOnRequest()
+      this.offOnCall()
       messageBuilder.disConnect(() => {
         DEBUG &&
           logger.debug('SideService messageBuilder stop to listen to DeviceApp')

@@ -3,6 +3,8 @@ import { settingsLib } from './side-settings'
 import { downloaderLib } from './side-download-file'
 import { fileTransferLib } from './side-file-transfer'
 
+const DEBUG = __DEBUG__
+
 function addBaseURL(opts) {
   const params = {
     timeout: 10000,
@@ -22,7 +24,7 @@ export function BaseSideService({
   onRun,
   onDestroy,
   ...other
-}) {
+} = {}) {
   return {
     state,
     ...other,
@@ -46,7 +48,8 @@ export function BaseSideService({
       })
 
       if (typeof sideService !== 'undefined') {
-        logger.log('sideService start launchArgs=>', sideService.launchArgs)
+        DEBUG &&
+          logger.log('sideService start launchArgs=>', sideService.launchArgs)
         if (sideService.launchReasons.settingsChanged) {
           this._onSettingsChange(sideService.launchArgs)
         }

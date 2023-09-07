@@ -1,10 +1,12 @@
 export const settingsLib = {
   onChange(cb) {
-    if (!cb) return
+    if (!cb) return this
     settings.settingsStorage.addListener('change', cb)
+    return this
   },
   offChange() {
     settings.settingsStorage.removeListener('change')
+    return this
   },
   getItem(i) {
     return settings.settingsStorage.getItem(i)

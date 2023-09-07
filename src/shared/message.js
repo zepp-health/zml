@@ -375,6 +375,7 @@ export class MessageBuilder extends EventBus {
   }
 
   listen(cb) {
+    this.appSidePort = globalThis.getApp().port2
     messaging &&
       messaging.peerSocket.addListener('message', (message) => {
         DEBUG &&
@@ -1068,7 +1069,7 @@ export class MessageBuilder extends EventBus {
             result = buf2json(payload)
             break
           default: // text
-            result = buf2str(payload)
+            result = payload
             break
         }
 

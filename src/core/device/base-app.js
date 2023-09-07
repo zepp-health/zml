@@ -2,7 +2,7 @@ import '../../shared/device-polyfill'
 import { createDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 
-export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other }) {
+export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
   return {
     globalData,
     ...other,
