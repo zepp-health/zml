@@ -67,7 +67,7 @@ import { BaseSideService } from '@zeppos/zml/base-side'
 AppSideService(BaseSideService())
 ```
 
-See [helloworld](./examples/helloworld1/)
+See [helloworld1](./examples/helloworld1/)
 
 ### request APIs
 
