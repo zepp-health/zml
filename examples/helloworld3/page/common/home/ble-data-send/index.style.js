@@ -18,7 +18,7 @@ export const TEXT_STYLE = {
 }
 
 export const BTN_STYLE = {
-  text: getText('appName'),
+  text: 'send request',
   x: px(42),
   y: px(200),
   w: DEVICE_WIDTH - px(42) * 2,
