@@ -45,5 +45,6 @@ merge(BaseApp, pluginService)
 BaseApp.init()
 
 export {
-  BaseApp
+  BaseApp,
+  merge as mixin
 }

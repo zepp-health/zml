@@ -147,5 +147,6 @@ merge(BaseSideService, pluginService)
 BaseSideService.init()
 
 export {
-  BaseSideService
+  BaseSideService,
+  merge as mixin
 }

@@ -63,5 +63,6 @@ merge(BasePage, pluginService)
 BasePage.init()
 
 export {
-  BasePage
+  BasePage,
+  merge as mixin
 }
