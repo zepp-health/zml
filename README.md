@@ -4,6 +4,10 @@
 
 A mini development library for Zepp OS mini programs. Currently integrates network requests, communication and other functions.
 
+## API_LEVEL Required
+This library requires **API_LEVEL 3.0 or above**.
+
+
 ## Usage
 
 ### httpRequest API

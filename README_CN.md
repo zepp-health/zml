@@ -2,6 +2,9 @@
 
 一个为 Zepp OS 小程序的开发迷你开发库。目前集成了网络请求,通信等功能。
 
+## API_LEVEL 要求
+这个库要求 **API_LEVEL 3.0** 以上
+
 ## 使用
 
 ### httpRequest API
