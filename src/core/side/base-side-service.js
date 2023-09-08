@@ -2,6 +2,8 @@ import { device } from './side-message'
 import { settingsLib } from './side-settings'
 import { downloaderLib } from './side-download-file'
 import { fileTransferLib } from './side-file-transfer'
+import { merge } from '../common/merge'
+import { pluginService } from '../common/extend-plugin'
 
 const DEBUG = __DEBUG__
 
@@ -18,14 +20,14 @@ function addBaseURL(opts) {
 
 const logger = Logger.getLogger(sideService.appInfo.app.appName)
 
-export function BaseSideService({
+function BaseSideService({
   state = {},
   onInit,
   onRun,
   onDestroy,
   ...other
 } = {}) {
-  return {
+  const opts = {
     state,
     ...other,
     onInit(opts) {
@@ -134,4 +136,16 @@ export function BaseSideService({
         })
     },
   }
+
+  BaseSideService.handle(opts)
+
+  return opts
+}
+
+merge(BaseSideService, pluginService)
+
+BaseSideService.init()
+
+export {
+  BaseSideService
 }

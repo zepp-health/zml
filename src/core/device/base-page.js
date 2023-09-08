@@ -1,10 +1,12 @@
 import { getDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
+import { merge } from '../common/merge'
+import { pluginService } from '../common/extend-plugin'
 
-export function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
+function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
   const messaging = getDeviceMessage()
 
-  return {
+  const opts = {
     state,
     ...other,
     onInit(...opts) {
@@ -50,4 +52,16 @@ export function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
       return fileTransferLib.sendFile(path, opts)
     },
   }
+
+  BasePage.handle(opts)
+
+  return opts
+}
+
+merge(BasePage, pluginService)
+
+BasePage.init()
+
+export {
+  BasePage
 }

@@ -1,8 +1,10 @@
 import { createDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
+import { merge } from '../common/merge'
+import { pluginService } from '../common/extend-plugin'
 
-export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
-  return {
+function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
+  const opts = {
     globalData,
     ...other,
     onCreate(...opts) {
@@ -32,4 +34,16 @@ export function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {})
       })
     },
   }
+
+  BaseApp.handle(opts)
+
+  return opts
+}
+
+merge(BaseApp, pluginService)
+
+BaseApp.init()
+
+export {
+  BaseApp
 }
