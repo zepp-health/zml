@@ -1,6 +1,6 @@
 {
   "name": "@zeppos/zml",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A Mini Library of ZeppOS MiniApp",
   "zeppos": true,
   "typings": "./zml.d.ts",
