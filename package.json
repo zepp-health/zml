@@ -15,7 +15,10 @@
   },
   "files": [
     "dist",
-    "zml.d.ts"
+    "zml.d.ts",
+    "examples",
+    "README_CN.md",
+    "README.md"
   ],
   "scripts": {
     "watch": "rollup -w -c rollup.config.mjs",
