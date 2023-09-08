@@ -1,4 +1,3 @@
-import '../../shared/device-polyfill'
 import { createDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 

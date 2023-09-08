@@ -1,3 +1,5 @@
+import { setTimeout, clearTimeout } from './setTimeout'
+
 export function Deferred() {
   const defer = {
     canceled: false,

@@ -1,3 +1,4 @@
+import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
@@ -12,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
         passes: 3,
         toplevel: true,
         drop_console: true,
-        pure_funcs: ["Connector.getStatus", "Connector.getAction"],
+        pure_funcs: [],
         global_defs: {
           __PROD__: true,
         },
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
   )
 }
+
 
 export default [
   {
@@ -36,6 +38,12 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './event', replacement: './device-event' },
+          { find: './setTimeout', replacement: './device-setTimeout' },
+        ],
+      }),
     ],
   },
   {
@@ -52,6 +60,12 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './event', replacement: './device-event' },
+          { find: './setTimeout', replacement: './device-setTimeout' },
+        ],
+      }),
     ],
   },
   {
@@ -84,6 +98,12 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './event', replacement: './device-event' },
+          { find: './setTimeout', replacement: './device-setTimeout' },
+        ],
+      }),
     ],
   },
   {
@@ -100,6 +120,12 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './event', replacement: './device-event' },
+          { find: './setTimeout', replacement: './device-setTimeout' },
+        ],
+      }),
     ],
   },
   {

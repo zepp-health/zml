@@ -4,6 +4,7 @@ import { Deferred, timeout } from './defer'
 import { nativeBle } from './ble'
 import { json2buf, buf2json, bin2hex, buf2str } from './data'
 import { isZeppOS } from '../core/common/common'
+import { setTimeout, clearTimeout } from './setTimeout'
 
 const logger = isZeppOS()
   ? Logger.getLogger('device-message')
