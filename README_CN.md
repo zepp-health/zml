@@ -41,7 +41,7 @@ Page(
     getYourData() {
       return this.httpRequest({
         method: 'get',
-        url: 'you url',
+        url: 'your url',
       })
         .then((result) => {
           console.log('result.status', result.status)
@@ -68,7 +68,7 @@ import { BaseSideService } from '@zeppos/zml/base-side'
 AppSideService(BaseSideService())
 ```
 
-查看 [helloworld1](./examples/helloworld1/)
+查看 [helloworld1](examples/helloworld1/)
 
 ### request APIs
 
@@ -234,9 +234,9 @@ AppSideService(
 )
 ```
 
-查看 [helloworld2](./examples/helloworld2/)
+查看 [helloworld2](examples/helloworld2/)
 
 
 ### 更复杂的例子
 
-查看 [helloworld3](./examples/helloworld3/)
+查看 [helloworld3](examples/helloworld3/)
