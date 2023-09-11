@@ -68,7 +68,7 @@ import { BaseSideService } from '@zeppos/zml/base-side'
 AppSideService(BaseSideService())
 ```
 
-查看 [helloworld1](examples/helloworld1/)
+查看 [examples/helloworld1](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
 
 ### request APIs
 
@@ -234,9 +234,9 @@ AppSideService(
 )
 ```
 
-查看 [helloworld2](examples/helloworld2/)
+查看 [examples/helloworld2](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
 
 
 ### 更复杂的例子
 
-查看 [helloworld3](examples/helloworld3/)
+查看 [examples/helloworld3](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)

@@ -1,6 +1,6 @@
 # ZML
 
-[中文版 README](README_CN.md)
+[中文版 README_CN](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
 
 A mini development library for Zepp OS mini programs. Currently integrates network requests, communication and other functions.
 
@@ -71,7 +71,7 @@ import { BaseSideService } from '@zeppos/zml/base-side'
 AppSideService(BaseSideService())
 ```
 
-See [helloworld1](examples/helloworld1/)
+See [examples/helloworld1](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
 
 ### request APIs
 
@@ -229,9 +229,9 @@ AppSideService(
   }),
 )
 ```
-See [helloworld2](examples/helloworld2/)
+See [examples/helloworld2](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
 
 
 ### More complex example
 
-See [helloworld3](examples/helloworld3/)
+See [examples/helloworld3](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
