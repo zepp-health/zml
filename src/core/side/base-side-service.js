@@ -1,9 +1,9 @@
-import { device } from './side-message'
+import { device as messagingLib } from './side-message'
 import { settingsLib } from './side-settings'
 import { downloaderLib } from './side-download-file'
 import { fileTransferLib } from './side-file-transfer'
 import { merge } from '../common/merge'
-import { pluginService } from '../common/extend-plugin'
+import { pluginService } from '../common/plugin-service'
 
 const DEBUG = __DEBUG__
 
@@ -33,7 +33,8 @@ function BaseSideService({
     onInit(opts) {
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
-      device.onCall(this._onCall).onRequest(this.__onRequest.bind(this))
+      this.messaging = messagingLib
+      this.messaging.onCall(this._onCall).onRequest(this.__onRequest.bind(this))
 
       this._onReceivedFile = this.onReceivedFile?.bind(this)
       fileTransferLib.onSideServiceFileFinished(this._onReceivedFile)
@@ -41,13 +42,12 @@ function BaseSideService({
       this._onSettingsChange = this.onSettingsChange?.bind(this)
       settingsLib.onChange(this._onSettingsChange)
 
-      device.start()
-      onInit?.apply(this, opts)
-      Object.entries(other).forEach(([k, v]) => {
-        if (typeof k === 'string' && k.startsWith('onInit')) {
-          v.apply(this, opts)
-        }
+      this.messaging.start()
+
+      BaseSideService.mixins.forEach((m) => {
+        m & m.handler.onInit?.apply(this, opts)
       })
+      onInit?.apply(this, opts)
 
       if (typeof sideService !== 'undefined') {
         DEBUG &&
@@ -62,23 +62,21 @@ function BaseSideService({
       }
     },
     onRun(opts) {
-      onRun?.apply(this, opts)
-      Object.entries(other).forEach(([k, v]) => {
-        if (typeof k === 'string' && k.startsWith('onRun')) {
-          v.apply(this, opts)
-        }
+      BaseSideService.mixins.forEach((m) => {
+        m & m.handler.onRun?.apply(this, opts)
       })
+      onRun?.apply(this, opts)
     },
     onDestroy(opts) {
       if (this._onCall) {
-        device.offOnCall(this._onCall)
+        this.messaging.offOnCall(this._onCall)
       }
 
       if (this._onRequest) {
-        device.offOnRequest(this._onRequest)
+        this.messaging.offOnRequest(this._onRequest)
       }
 
-      device.stop()
+      this.messaging.stop()
 
       if (this._onReceivedFile) {
         fileTransferLib.offFile(this._onReceivedFile)
@@ -88,19 +86,16 @@ function BaseSideService({
         settingsLib.offChange(this._onSettingsChange)
       }
 
-      Object.entries(other).forEach(([k, v]) => {
-        if (typeof k === 'string' && k.startsWith('onDestroy')) {
-          v.apply(this, opts)
-        }
-      })
-
       onDestroy?.apply(this, opts)
+      BaseSideService.mixins.forEach((m) => {
+        m & m.handler.onDestroy?.apply(this, opts)
+      })
     },
-    request(data) {
-      return device.request(data)
+    request(data, opts = {}) {
+      return this.messaging.request(data, opts)
     },
     call(data) {
-      return device.call(data)
+      return this.messaging.call(data)
     },
     fetch(opt) {
       return fetch(addBaseURL(opt))
@@ -146,7 +141,4 @@ merge(BaseSideService, pluginService)
 
 BaseSideService.init()
 
-export {
-  BaseSideService,
-  merge as mixin
-}
+export { BaseSideService, merge }

@@ -1,9 +1,18 @@
 import { getDeviceMessage } from './device-message'
 import { fileTransferLib } from './device-file-transfer'
 import { merge } from '../common/merge'
-import { pluginService } from '../common/extend-plugin'
+import { pluginService } from '../common/plugin-service'
+import { httpRequestPlugin } from './httpRequest'
 
-function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
+function BasePage({
+  state = {},
+  onInit,
+  onResume,
+  onPause,
+  build,
+  onDestroy,
+  ...other
+} = {}) {
   const messaging = getDeviceMessage()
 
   const opts = {
@@ -12,41 +21,62 @@ function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
     onInit(...opts) {
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
-      messaging.onCall(this._onCall).onRequest(this._onRequest)
+      this.messaging = messaging
+      this.messaging.onCall(this._onCall).onRequest(this._onRequest)
 
       if (this.onReceivedFile) {
         this._onReceivedFile = this.onReceivedFile?.bind(this)
         fileTransferLib.onFile(this._onReceivedFile)
       }
 
+      BasePage.mixins.forEach((m) => {
+        m & m.handler.onInit?.apply(this, opts)
+      })
+
       onInit?.apply(this, opts)
     },
+    onResume(...opts) {
+      this.mixins.forEach((m) => {
+        m & m.handler.onResume?.apply(this, opts)
+      })
+      onResume?.apply(this, opts)
+    },
+    onPause(...opts) {
+      onPause?.apply(this, opts)
+      BasePage.mixins.forEach((m) => {
+        m & m.handler.onPause?.apply(this, opts)
+      })
+    },
+    build(...opts) {
+      BasePage.mixins.forEach((m) => {
+        m & m.handler.build?.apply(this, opts)
+      })
+      build?.apply(this, opts)
+    },
     onDestroy(...opts) {
+      onDestroy?.apply(this, opts)
+
+      BasePage.mixins.forEach((m) => {
+        m & m.handler.onDestroy?.apply(this, opts)
+      })
+
       if (this._onCall) {
-        messaging.offOnCall(this._onCall)
+        this.messaging.offOnCall(this._onCall)
       }
 
       if (this._onRequest) {
-        messaging.offOnRequest(this._onRequest)
+        this.messaging.offOnRequest(this._onRequest)
       }
 
       if (this._onReceivedFile) {
         fileTransferLib.offFile(this._onReceivedFile)
       }
-
-      onDestroy?.apply(this, opts)
     },
-    request(data) {
-      return messaging.request(data)
-    },
-    httpRequest(data) {
-      return messaging.request({
-        method: 'http.request',
-        params: data,
-      })
+    request(data, opts = {}) {
+      return this.messaging.request(data, opts)
     },
     call(data) {
-      return messaging.call(data)
+      return this.messaging.call(data)
     },
     sendFile(path, opts) {
       return fileTransferLib.sendFile(path, opts)
@@ -61,8 +91,6 @@ function BasePage({ state = {}, onInit, onDestroy, ...other } = {}) {
 merge(BasePage, pluginService)
 
 BasePage.init()
+BasePage.use(httpRequestPlugin)
 
-export {
-  BasePage,
-  merge as mixin
-}
+export { BasePage, merge }

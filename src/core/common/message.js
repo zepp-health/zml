@@ -64,7 +64,7 @@ export function wrapperMessage(messageBuilder) {
       messageBuilder.off('request', cb)
       return this
     },
-    request(data) {
+    request(data, opts = {}) {
       isZeppOS() && messageBuilder.fork(this.shakeTimeout)
       DEBUG &&
         logger.debug(
@@ -79,6 +79,7 @@ export function wrapperMessage(messageBuilder) {
           },
           {
             timeout: this.requestTimeout,
+            ...opts
           },
         )
         .then(({ error, result }) => {
