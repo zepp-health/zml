@@ -44,9 +44,11 @@ function BaseSideService({
 
       this.messaging.start()
 
-      BaseSideService.mixins.forEach((m) => {
+      for (let i = 0; i <= BaseSideService.mixins.length - 1; i++) {
+        const m = BaseSideService.mixins[i]
         m & m.handler.onInit?.apply(this, opts)
-      })
+      }
+
       onInit?.apply(this, opts)
 
       if (typeof sideService !== 'undefined') {
@@ -62,9 +64,10 @@ function BaseSideService({
       }
     },
     onRun(opts) {
-      BaseSideService.mixins.forEach((m) => {
+      for (let i = 0; i <= BaseSideService.mixins.length - 1; i++) {
+        const m = BaseSideService.mixins[i]
         m & m.handler.onRun?.apply(this, opts)
-      })
+      }
       onRun?.apply(this, opts)
     },
     onDestroy(opts) {
@@ -87,9 +90,11 @@ function BaseSideService({
       }
 
       onDestroy?.apply(this, opts)
-      BaseSideService.mixins.forEach((m) => {
+
+      for (let i = BaseSideService.mixins.length - 1; i >= 0; i--) {
+        const m = BaseSideService.mixins[i]
         m & m.handler.onDestroy?.apply(this, opts)
-      })
+      }
     },
     request(data, opts = {}) {
       return this.messaging.request(data, opts)

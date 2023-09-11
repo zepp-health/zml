@@ -17,17 +17,20 @@ function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
 
       fileTransferLib.onFile(this.onReceivedFile?.bind(this))
 
-      BaseApp.mixins.forEach((m) => {
+      for (let i = 0; i <= BaseApp.mixins.length - 1; i++) {
+        const m = BaseApp.mixins[i]
         m & m.handler.onCreate?.apply(this, opts)
-      })
+      }
+
       onCreate?.apply(this, opts)
     },
     onDestroy(...opts) {
       onDestroy?.apply(this, opts)
 
-      BaseApp.mixins.forEach((m) => {
+      for (let i = BaseApp.mixins.length - 1; i >= 0; i--) {
+        const m = BaseApp.mixins[i]
         m & m.handler.onDestroy?.apply(this, opts)
-      })
+      }
 
       this.messaging.offOnCall().offOnRequest().disConnect()
       fileTransferLib.offFile()
