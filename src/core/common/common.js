@@ -10,7 +10,6 @@ if (typeof __$$R$$__ !== 'undefined') {
 
 export { _r }
 
-
 let getPackageInfo = null
 
 if (isZeppOS1()) {

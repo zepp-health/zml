@@ -79,7 +79,7 @@ export function wrapperMessage(messageBuilder) {
           },
           {
             timeout: this.requestTimeout,
-            ...opts
+            ...opts,
           },
         )
         .then(({ error, result }) => {
