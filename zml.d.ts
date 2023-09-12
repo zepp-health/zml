@@ -79,6 +79,7 @@ declare module '@zeppos/zml/base-app' {
     <TData extends DataOption, TCustom extends CustomOption>(
       options: Options<TData, TCustom>,
     ): any
+    use(opts: (instance: any, ...args: any[]) => this | any): this
   }
 
   let BaseApp: Constructor
@@ -88,7 +89,10 @@ declare module '@zeppos/zml/base-page' {
   type Instance<
     TData extends DataOption,
     TCustom extends CustomOption,
-  > = OptionalInterface<ILifeCycle> & Omit<InstanceMethod, 'fetch' | 'download'> & Data<TData> & TCustom
+  > = OptionalInterface<ILifeCycle> &
+    Omit<InstanceMethod, 'fetch' | 'download'> &
+    Data<TData> &
+    TCustom
 
   type Options<
     TData extends DataOption,
@@ -118,6 +122,7 @@ declare module '@zeppos/zml/base-page' {
     <TData extends DataOption, TCustom extends CustomOption>(
       options: Options<TData, TCustom>,
     ): any
+    use(opts: (instance: any, ...args: any[]) => this | any): this
   }
 
   let BasePage: Constructor
@@ -127,7 +132,10 @@ declare module '@zeppos/zml/base-side' {
   type Instance<
     TData extends DataOption,
     TCustom extends CustomOption,
-  > = OptionalInterface<ILifeCycle> & Omit<InstanceMethod, 'httpRequest'> & Data<TData> & TCustom
+  > = OptionalInterface<ILifeCycle> &
+    Omit<InstanceMethod, 'httpRequest'> &
+    Data<TData> &
+    TCustom
 
   type Options<
     TData extends DataOption,
@@ -154,6 +162,7 @@ declare module '@zeppos/zml/base-side' {
     <TData extends DataOption, TCustom extends CustomOption>(
       options: Options<TData, TCustom>,
     ): any
+    use(opts: (instance: any, ...args: any[]) => this | any): this
   }
 
   let BaseSideService: Constructor
