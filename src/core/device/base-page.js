@@ -18,6 +18,7 @@ function BasePage({
   const opts = {
     state,
     ...other,
+    globalData: getApp()._options.globalData,
     onInit(...opts) {
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
