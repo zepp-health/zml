@@ -20,10 +20,10 @@ Page(
     readAsync() {
       return this.httpRequest({
         method: 'get',
-        url: 'http://yijuzhan.com/api/word.php',
+        url: 'https://bible-api.com/john%203:16',
       })
         .then((result) => {
-          layout.updateTxtSuccess(result.body)
+          layout.updateTxtSuccess(JSON.parse(result.body).text)
           logger.log('result=>%j', result)
         })
         .catch((error) => {
@@ -31,7 +31,7 @@ Page(
           logger.error('error=>%j', error)
         })
     },
-  
+
     onDestroy() {
       logger.log('page onDestroy invoked')
     },

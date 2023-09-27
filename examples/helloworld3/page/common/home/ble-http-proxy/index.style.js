@@ -9,7 +9,7 @@ export const TEXT_STYLE = {
   x: px(42),
   y: px(100),
   w: DEVICE_WIDTH - px(42) * 2,
-  h: px(100),
+  h: px(200),
   color: 0xff00ff,
   text_size: px(20),
   align_h: ui.align.CENTER_H,
@@ -19,7 +19,7 @@ export const TEXT_STYLE = {
 export const BTN_STYLE = {
   text: 'send request',
   x: px(42),
-  y: px(200),
+  y: px(300),
   w: DEVICE_WIDTH - px(42) * 2,
   h: px(100),
   color: 0xff00ff,

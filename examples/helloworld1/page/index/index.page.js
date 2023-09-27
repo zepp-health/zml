@@ -18,7 +18,7 @@ Page(
     getDataFromNetwork() {
       this.httpRequest({
         method: 'get',
-        url: 'http://yijuzhan.com/api/word.php',
+        url: 'https://bible-api.com/john%203:16',
       }).then((result) => {
         logger.log('result.status=>', JSON.stringify(result.status))
         logger.log('result.statusText=>', JSON.stringify(result.statusText))
