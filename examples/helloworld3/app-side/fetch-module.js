@@ -13,7 +13,6 @@ export const fetchModule = {
     })
 
     logger.log('test api', result.body)
-
-    return JSON.parse(result.body).text
+    return result.body.text
   },
 }

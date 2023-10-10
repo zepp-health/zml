@@ -23,7 +23,7 @@ Page(
         url: 'https://bible-api.com/john%203:16',
       })
         .then((result) => {
-          layout.updateTxtSuccess(JSON.parse(result.body).text)
+          layout.updateTxtSuccess(result.body.text)
           logger.log('result=>%j', result)
         })
         .catch((error) => {
