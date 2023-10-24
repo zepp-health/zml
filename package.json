@@ -4,6 +4,7 @@
   "description": "A Mini Library of ZeppOS MiniApp",
   "zeppos": true,
   "typings": "./zml.d.ts",
+  "keywords": ["ZeppOS"],
   "exports": {
     ".": null,
     "./base-app": "./dist/zml-app.js",
