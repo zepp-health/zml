@@ -1,5 +1,7 @@
 # ZML
 
+[English](./README.md) | 简体中文
+
 一个为 Zepp OS 小程序的开发迷你开发库。目前集成了网络请求,通信等功能。
 
 ## API_LEVEL 要求
@@ -68,7 +70,7 @@ import { BaseSideService } from '@zeppos/zml/base-side'
 AppSideService(BaseSideService())
 ```
 
-查看 [examples/helloworld1](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
+查看 [examples/helloworld1](./examples/helloworld1)
 
 ### request APIs
 
@@ -234,9 +236,15 @@ AppSideService(
 )
 ```
 
-查看 [examples/helloworld2](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
+查看 [examples/helloworld2](./examples/helloworld2)
 
 
 ### 更复杂的例子
 
-查看 [examples/helloworld3](https://www.npmjs.com/package/@zeppos/zml?activeTab=code)
+查看 [examples/helloworld3](./examples/helloworld3)
+
+## 许可协议
+
+本项目遵循 Apache License Version 2.0 协议，详情见 [LICENSE 声明](LICENSE.txt)。
+
+Copyright (c) 2023-present Zepp Health. All Rights Reserved.

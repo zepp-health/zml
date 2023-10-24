@@ -25,8 +25,12 @@
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
     "format": "prettier src -write"
   },
-  "author": "htoooth",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zepp-health/zml.git"
+  },
+  "author": "huangtao1@zepp.com",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@rollup/plugin-alias": "^5.0.0",
     "@rollup/plugin-commonjs": "^25.0.4",
