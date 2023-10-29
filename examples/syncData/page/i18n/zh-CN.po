@@ -1,0 +1,3 @@
+
+msgid "appName"
+msgstr "同步数据"
