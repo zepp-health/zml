@@ -7,8 +7,10 @@ App(
     globalData: {
     },
     onCreate() {
+      logger.log('app on create invoke')
     },
     onDestroy(opts) {
+      logger.log('app on destroy invoke')
     },
   }),
 )

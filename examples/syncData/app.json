@@ -12,7 +12,7 @@
     "vender": "zepp",
     "description": "simple sync health data"
   },
-  "permissions": ["data:os.device.info", "data:user.hd.heart_rate"],
+  "permissions": ["data:os.device.info", "data:user.hd.heart_rate", "device:os.geolocation"],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0",
@@ -26,7 +26,9 @@
       "module": {
         "page": {
           "pages": [
-            "page/common/home/ble-http-proxy/index.page"
+            "page/common/home/index/index.page",
+            "page/common/home/sync-hr/index.page",
+            "page/common/home/sync-geolocation/index.page"
           ]
         },
         "app-side": {

@@ -17,7 +17,7 @@ export const TEXT_STYLE = {
 }
 
 export const BTN_STYLE = {
-  text: 'send request',
+  text: 'sync data',
   x: px(42),
   y: px(300),
   w: DEVICE_WIDTH - px(42) * 2,

@@ -1,10 +1,11 @@
 import { BasePage } from '@zeppos/zml/base-page'
 import { log as Logger } from '@zos/utils'
 import { layout } from 'zosLoader:./index.[pf].layout.js'
-import { HeartRate } from '@zos/sensor'
+import { Geolocation } from '@zos/sensor'
+import { url } from '../const'
 
-const logger = Logger.getLogger('sync-data.page')
-const heartRate = new HeartRate()
+const logger = Logger.getLogger('sync-data-geolocation.page')
+const geolocation = new Geolocation()
 
 Page(
   BasePage({
@@ -17,23 +18,29 @@ Page(
 
     onInit() {
       const callback = () => {
-        layout.updateTxtUploading()
+        console.log('pos_status', geolocation.getStatus())
 
-        const d = heartRate.getCurrent()
-        this.syncData(d)
+        const lat = geolocation.getLatitude()
+        const long = geolocation.getLongitude()
+
+        this.syncData({
+          lat,
+          long
+        })
       }
 
-      heartRate.onCurrentChange(callback)
+      geolocation.start()
+      geolocation.onChange(callback)
+
       logger.log('page onInit invoked')
     },
 
     syncData(data) {
+      layout.updateTxtUploading()
       return this.httpRequest({
         method: 'post',
-        url: 'your Service',
-        body: {
-          data
-        },
+        url: `${url}/pos`,
+        body: data,
       })
         .then((result) => {
           layout.updateTxtSuccess()
