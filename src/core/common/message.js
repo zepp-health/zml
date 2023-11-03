@@ -16,6 +16,7 @@ export function wrapperMessage(messageBuilder) {
   return {
     shakeTimeout,
     requestTimeout,
+    transport: messageBuilder,
     onCall(cb) {
       if (!cb) return this
       messageBuilder.on('call', ({ contentType, payload }) => {
