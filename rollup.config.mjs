@@ -144,4 +144,52 @@ export default [
       commonjs(),
     ],
   },
+  {
+    input: 'src/core/device/bg-service/bg-service-plugin.js',
+    output: {
+      file: 'dist/module/bg-service/plugin.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/device/bg-service/bg-service.js',
+    output: {
+      file: 'dist/module/bg-service/index.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/common/qs.js',
+    output: {
+      file: 'dist/module/qs/index.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
 ]

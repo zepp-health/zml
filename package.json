@@ -8,13 +8,16 @@
     "ZeppOS"
   ],
   "exports": {
-    ".": null,
+    ".": "./",
     "./base-app": "./dist/zml-app.js",
     "./base-app.debug": "./dist/zml-app.debug.js",
     "./base-page": "./dist/zml-page.js",
     "./base-page.debug": "./dist/zml-page.debug.js",
     "./base-side": "./dist/zml-side.js",
-    "./base-side.debug": "./dist/zml-side.debug.js"
+    "./base-side.debug": "./dist/zml-side.debug.js",
+    "./module/bg-service": "./dist/module/bg-service/index.js",
+    "./module/bg-service/plugin": "./dist/module/bg-service/plugin.js",
+    "./module/qs": "./dist/module/qs/index.js"
   },
   "files": [
     "dist",
