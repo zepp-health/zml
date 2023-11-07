@@ -29,7 +29,14 @@ const pluginService = {
     this.plugins.forEach((p) => {
       if (!p) return
       if (typeof p.handler === 'function') {
-        p.handler.call(this, instance, ...p.args)
+        const result = p.handler.call(this, instance, ...p.args)
+
+        if (typeof result === 'object') {
+          this.mixins.push({
+            handler: result,
+            args: [],
+          })
+        }
       }
     })
 
