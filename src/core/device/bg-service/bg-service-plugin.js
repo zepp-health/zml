@@ -12,14 +12,6 @@ export function AppPlugin(opts) {
   }
 }
 
-export function PagePlugin(vm) {
-  return {
-    onDestroy() {
-      BgService.disposePage()
-    }
-  }
-}
-
 export function BgServicePlugin() {
   return {
     onDestroy() {

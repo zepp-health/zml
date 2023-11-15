@@ -126,17 +126,15 @@ class BackgroundService {
       url: this.url,
       param: `_u=${this.url}&_s=m&_a=stop` + '&' + stringify(params ?? {}),
       complete_func: (info) => {
-        setTimeout(() => {
-          if (!info.result) {
-            showToast({
-              content: `stop service[${this.url}] error`,
-            })
-            cb && cb({ error: new Error(info.file) })
-            return
-          }
+        if (!info.result) {
+          showToast({
+            content: `stop service[${this.url}] error`,
+          })
+          cb && cb({ error: new Error(info.file) })
+          return
+        }
 
-          cb && cb(info)
-        }, 10)
+        cb && cb(info)
       },
     })
 
@@ -243,12 +241,18 @@ class BgServiceMgr {
     }
   }
 
+  stopAll() {
+    return appService.getAllAppServices().forEach(v => {
+      new BackgroundService(v).stop()
+    })
+  }
+
   offMessage() {
     this.onMessage = null
   }
 
   disposePage() {
-    // NOTE: 内存不能正确释放的问题，所以有手动将 onMessage 取消
+    // NOTE: 内存不能正确释放的问题，所以只能手动将 onMessage 取消，释放内存
     // this._instance.offMessage()
   }
 
