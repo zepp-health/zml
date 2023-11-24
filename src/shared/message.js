@@ -102,9 +102,9 @@ class Session extends EventBus {
     this.type = type // payloadType
     this.ctx = ctx
     this.tempBuf = null
-    this.chunks = []
     this.count = 0
     this.finishChunk = null
+    logger.log('Session Created.')
   }
 
   addChunk(payload) {
@@ -129,26 +129,16 @@ class Session extends EventBus {
       return
     }
 
-    this.chunks.push(payload)
+    if (!this.tempBuf) this.tempBuf = Buffer.alloc(payload.totalLength)
+
+    const offset = (payload.seqId - 1) * HM_MESSAGE_PROTO_PAYLOAD
+    payload.payload.copy(this.tempBuf, offset)
+
     this.checkIfReceiveAllChunks()
   }
 
   checkIfReceiveAllChunks() {
-    if (this.count !== this.chunks.length) return
-
-    for (let i = 1; i <= this.count; i++) {
-      const chunk = this.chunks.find((c) => c.seqId === i)
-
-      if (!chunk) {
-        this.releaseBuf()
-        this.emit('error', Error('receive data error'))
-        return
-      }
-
-      const buf = chunk.payload
-      this.tempBuf = this.tempBuf ? Buffer.concat([this.tempBuf, buf]) : buf
-    }
-
+    // TODO: Check if all chunks are received
     if (!this.finishChunk) return
 
     this.finishChunk.payload = this.tempBuf
@@ -176,9 +166,9 @@ class Session extends EventBus {
   getLength() {
     return this.tempBufLength
   }
+
   releaseBuf() {
     this.tempBuf = null
-    this.chunks = []
     this.finishChunk = null
     this.count = 0
   }
