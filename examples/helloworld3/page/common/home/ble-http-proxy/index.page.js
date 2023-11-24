@@ -1,20 +1,17 @@
 import { BasePage } from '@zeppos/zml/base-page'
-import { log as Logger } from '@zos/utils'
 import { layout } from 'zosLoader:./index.[pf].layout.js'
-
-const logger = Logger.getLogger('ble-http-proxy.page')
 
 Page(
   BasePage({
     name: 'ble-http-proxy.page',
     state: {},
     build() {
-      logger.log('page build invoked')
+      this.log('page build invoked')
       layout.render(this)
     },
 
     onInit() {
-      logger.log('page onInit invoked')
+      this.log('page onInit invoked')
     },
 
     readAsync() {
@@ -24,16 +21,16 @@ Page(
       })
         .then((result) => {
           layout.updateTxtSuccess(result.body.text)
-          logger.log('result=>%j', result)
+          this.log('result=>%j', result)
         })
         .catch((error) => {
           layout.updateTxtError(error.message)
-          logger.error('error=>%j', error)
+          this.error('error=>%j', error)
         })
     },
 
     onDestroy() {
-      logger.log('page onDestroy invoked')
+      this.log('page onDestroy invoked')
     },
   }),
 )

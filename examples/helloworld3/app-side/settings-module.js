@@ -1,4 +1,3 @@
-import { settingsLib } from '@zeppos/zml/base-side'
 const logger = Logger.getLogger('test-settings')
 
 export const settingsModule = {
@@ -7,6 +6,6 @@ export const settingsModule = {
     logger.log('settings run')
   },
   testSettings() {
-    logger.log('settings all value %j', settingsLib.getAll())
+    logger.log('settings all value %j', this.settings.getAll())
   },
 }

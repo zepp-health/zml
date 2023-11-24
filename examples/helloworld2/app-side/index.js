@@ -1,17 +1,15 @@
 import { BaseSideService } from '@zeppos/zml/base-side'
 
-const logger = Logger.getLogger('test')
-
 AppSideService(
   BaseSideService({
     onInit() {
-      logger.log('app side service invoke onInit')
+      this.log('app side service invoke onInit')
     },
     onRun() {
-      logger.log('app side service invoke onRun')
+      this.log('app side service invoke onRun')
     },
     onDestroy() {
-      logger.log('app side service invoke onDestroy')
+      this.log('app side service invoke onDestroy')
     },
     getDataFromDevice() {
       return this.request({
@@ -23,11 +21,11 @@ AppSideService(
       })
         .then((result) => {
           // receive your data
-          logger.log('result=>', result)
+          this.log('result=>', result)
         })
         .catch((error) => {
           // receive your error
-          logger.error('error=>', error)
+          this.error('error=>', error)
         })
     },
     notifyDevice() {
@@ -47,7 +45,7 @@ AppSideService(
       // second param is your data
       if (req.method === 'your.method1') {
         // do something
-        logger.debug('receive request=>', req)
+        this.debug('receive request=>', req)
         res(null, {
           test: 'test',
         })
@@ -59,10 +57,10 @@ AppSideService(
     onCall(req) {
       // call from device
       // no reply
-      logger.debug('receive call=>', req)
+      this.debug('receive call=>', req)
       if (req.method === 'your.method3') {
         // do something
-        logger.debug('receive call=>', req)
+        this.debug('receive call=>', req)
       } else if (req.method === 'mobile.request') {
         this.getDataFromDevice()
       } else if (req.method === 'mobile.call') {

@@ -1,13 +1,9 @@
 import { BaseSideService } from '@zeppos/zml/base-side'
-import { settingsLib } from '@zeppos/zml/base-side'
-
 import { fileDownloadModule } from './file-download-module'
 import { fileTransferModule } from './file-transfer-module'
 import { fetchModule } from './fetch-module'
 import { settingsModule } from './settings-module'
 import { imageConvertModule } from './image-convert-module'
-
-const logger = Logger.getLogger('test-message-app-side')
 
 const state = {}
 
@@ -19,16 +15,16 @@ AppSideService(
     ...imageConvertModule,
     ...fileTransferModule,
     onInit() {
-      logger.log('app side service invoke onInit')
+      this.log('app side service invoke onInit')
     },
     onRun() {
-      logger.log('app side service invoke onRun')
+      this.log('app side service invoke onRun')
     },
     onDestroy() {
-      logger.log('app side service invoke onDestroy')
+      this.log('app side service invoke onDestroy')
     },
     onReceivedFile(file) {
-      logger.log('received file:=> %j', file)
+      this.log('received file:=> %j', file)
     },
     onRequest(req, res) {
       const [module, action] = req.method.split('.')
@@ -57,8 +53,8 @@ AppSideService(
       }
     },
     onSettingsChange({ key, newValue, oldValue }) {
-      logger.log(key, newValue, oldValue)
-      logger.log(
+      this.log(key, newValue, oldValue)
+      this.log(
         'app side service invoke onSettingsChange',
         key,
         newValue,
@@ -66,7 +62,7 @@ AppSideService(
       )
       switch (key) {
         case 'data:clear': {
-          settingsLib.clear()
+          this.settings.clear()
           break
         }
         case 'downloadFile:start': {
@@ -95,7 +91,7 @@ AppSideService(
           break
         }
         default: {
-          logger.error('not implemented', key, newValue, oldValue)
+          this.error('not implemented', key, newValue, oldValue)
         }
       }
     },

@@ -1,5 +1,6 @@
 import { BTN_STYLE } from './index.style'
 import ui from '@zos/ui'
+
 import { getText } from '@zos/i18n'
 
 export const layout = {

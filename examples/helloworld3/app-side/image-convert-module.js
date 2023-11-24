@@ -8,7 +8,7 @@ export const imageConvertModule = {
   },
   async testConvertImage1() {
     // data://temp/logo.png_converted
-    const result = await convertLib.convert({
+    const result = await this.convert({
       filePath: 'data://download/logo.png',
     })
 
@@ -16,7 +16,7 @@ export const imageConvertModule = {
   },
   async testConvertImage2() {
     // data://download/converted_logo2.png
-    const result = await convertLib.convert({
+    const result = await this.convert({
       filePath: 'data://download/logo2.png',
       targetFilePath: 'data://download/converted_logo2.png',
     })

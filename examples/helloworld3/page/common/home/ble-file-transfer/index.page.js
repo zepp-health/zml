@@ -1,27 +1,24 @@
 import { BasePage } from '@zeppos/zml/base-page'
-import { log as Logger } from '@zos/utils'
 import { layout } from 'zosLoader:./index.[pf].layout.js'
-
-const logger = Logger.getLogger('ble-fileTransfer.page')
 
 Page(
   BasePage({
-    name: 'ble.page',
+    name: 'ble-fileTransfer.page',
     state: {
       file: '',
     },
     build() {
-      logger.log('page build invoked')
+      this.log('page build invoked')
       layout.render(this)
     },
 
     onInit() {
-      logger.log('page onInit invoked')
-      // logger.log('transferFile =>', typeof ble.transferFile)
+      this.log('page onInit invoked')
+      // this.log('transferFile =>', typeof ble.transferFile)
     },
 
     onDestroy() {
-      logger.log('page onDestroy invoked')
+      this.log('page onDestroy invoked')
     },
 
     fileToSide() {
@@ -29,7 +26,7 @@ Page(
       this.state.file = file
 
       file.on('progress', (progress) => {
-        logger.log('progress=> %j', progress)
+        this.log('progress=> %j', progress)
         layout.updateProgress({
           fileName: file.fileName,
           progress: Math.round(
@@ -48,11 +45,11 @@ Page(
     },
 
     onReceivedFile(file) {
-      logger.log('file received %s', file.toString())
+      this.log('file received %s', file.toString())
       this.state.file = file
 
       file.on('progress', (progress) => {
-        logger.log('file progress => %j', {
+        this.log('file progress => %j', {
           totalSize: progress.data.fileSize,
           loadedSize: progress.data.loadedSize,
         })
@@ -66,7 +63,7 @@ Page(
       })
 
       file.on('change', (event) => {
-        logger.log('file status =>', event.data.readyState)
+        this.log('file status =>', event.data.readyState)
         if (event.data.readyState === 'transferred') {
           layout.updateTxtSuccess(JSON.stringify(file))
           const userData = file.params
