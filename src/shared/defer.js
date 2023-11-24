@@ -1,4 +1,5 @@
 import { setTimeout, clearTimeout } from './setTimeout'
+import { Promise } from './promise-1.0'
 
 export function Deferred() {
   const defer = {

@@ -100,6 +100,6 @@ export function isSideService() {
   return typeof messaging !== 'undefined'
 }
 
-export function isPlainObject(value) {
-  return value?.constructor === Object
+export function isPlainObject(item) {
+  return (typeof item === 'object' && !Array.isArray(item) && item !== null)
 }

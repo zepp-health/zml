@@ -1,10 +1,9 @@
 import { _r } from '../../common/common'
-import { setTimeout } from '../../../shared/device-setTimeout'
-const appService = _r('@zos/app-service')
+import { stringify } from '../../common/qs'
 const { queryPermission, requestPermission } = _r('@zos/app')
 const { showToast } = _r('@zos/interaction')
 const { EventBus } = _r('@zos/utils')
-import { stringify } from '../../common/qs'
+const appService = _r('@zos/app-service')
 
 const BG_PERMISSIONS = ['device:os.bg_service']
 

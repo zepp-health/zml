@@ -45,7 +45,7 @@ export function wrapperMessage(messageBuilder) {
     call(data) {
       isZeppOS() && messageBuilder.fork(this.shakeTimeout)
       data = isPlainObject(data)
-        ? opts.contentType
+        ? data.contentType
           ? data
           : {
               jsonrpc: HM_RPC,
