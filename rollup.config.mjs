@@ -349,6 +349,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'3.0'`
       }),
       nodeResolve(),
       commonjs(),
