@@ -4,6 +4,7 @@
   "description": "A Mini Library of ZeppOS MiniApp",
   "zeppos": true,
   "typings": "./zml.d.ts",
+  "type": "module",
   "keywords": [
     "ZeppOS"
   ],
@@ -23,7 +24,9 @@
   "scripts": {
     "watch": "rollup -w -c rollup.config.mjs",
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
-    "format": "prettier src -write"
+    "format": "prettier src -write",
+    "test": "node --import ./env/zeppos-env.js  --test src"
+
   },
   "repository": {
     "type": "git",
