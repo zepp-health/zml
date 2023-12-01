@@ -1,1 +1,1 @@
-export { nativeBle } from '../core/common/common'
+export { nativeBle } from '../core/common/common.js'

@@ -1,4 +1,4 @@
-import { fileTransferLib } from './device-file-transfer'
+import { fileTransferLib } from './device-file-transfer.js'
 
 export function appPlugin(opts) {
 	return {

@@ -8,7 +8,11 @@ export function loggerPlugin() {
 				this.logger.log(...args)
 			}
 			this.error = (...args) => {
-				this.logger.error(...args)
+				if (args[0] instanceof Error) {
+					this.logger.error(...args)
+				} else {
+					this.logger.error({}, ...args)
+				}
 			}
 			this.debug = (...args) => {
 				this.logger.debug(...args)

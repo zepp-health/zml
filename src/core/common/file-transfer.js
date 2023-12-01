@@ -5,6 +5,10 @@ export function getFileTransfer(fileTransfer) {
    *     side supported file
    */
 
+  if (!fileTransfer) {
+    throw new Error('FileTransfer require api 3.0')
+  }
+
   return {
     onFile(cb) {
       if (!cb) {

@@ -1,6 +1,6 @@
-import { _r } from '../../common/common'
-import { stringify } from '../../common/qs'
-const { queryPermission, requestPermission } = _r('@zos/app')
+import { _r } from '../../common/common.js'
+import { stringify } from '../../common/qs.js'
+import { Permission } from '../permission/permission.js'
 const { showToast } = _r('@zos/interaction')
 const { EventBus } = _r('@zos/utils')
 const appService = _r('@zos/app-service')
@@ -11,6 +11,7 @@ class BackgroundService {
   constructor(url) {
     this.url = url
     this._onMessage = null
+    this.BgService = null
   }
 
   get onMessage() {
@@ -20,10 +21,10 @@ class BackgroundService {
   set onMessage(val) {
     if (val) {
       this._onMessage = val
-      BgService._eventBus.on('bgServiceMessage', this._onMessage)
+      this.BgService._eventBus.on('bgServiceMessage', this._onMessage)
     } else {
       this._onMessage = null
-      BgService._eventBus.off('bgServiceMessage')
+      this.BgService._eventBus.off('bgServiceMessage')
     }
   }
 
@@ -32,11 +33,7 @@ class BackgroundService {
   }
 
   postMessage(params) {
-    BgService._eventBus.emit('clientMessage', params)
-  }
-
-  offMessage() {
-    this.onMessage = null
+    this.BgService._eventBus.emit('clientMessage', params)
   }
 
   postEvent(params, cb) {
@@ -120,7 +117,6 @@ class BackgroundService {
       return
     }
 
-    this.onMessage = null
     const result = appService.stop({
       url: this.url,
       param: `_u=${this.url}&_s=m&_a=stop` + '&' + stringify(params ?? {}),
@@ -149,77 +145,24 @@ class BackgroundService {
   }
 }
 
-class Permission {
-  static PermissionStatus = {
-    unauthorized: 0,
-    error: 1,
-    authorized: 2,
-  }
-
-  static RequestPermissionResult = {
-    cancel: 0,
-    error: 1,
-    granted: 2,
-  }
-
-  static request(permissions, cb) {
-    const result = queryPermission({
-      permissions,
-    })[0]
-
-    switch (result) {
-      case Permission.PermissionStatus.unauthorized:
-        requestPermission({
-          permissions,
-          callback([res]) {
-            switch (res) {
-              case Permission.RequestPermissionResult.granted:
-                showToast({
-                  content: 'permission: granted',
-                })
-                cb && cb({ code: res })
-                break
-              case Permission.RequestPermissionResult.cancel:
-                showToast({
-                  content: 'permission: canceled',
-                })
-                cb && cb({ error: new Error(res) })
-                break
-              default:
-                showToast({
-                  content: 'permission: request error',
-                })
-                cb && cb({ error: new Error(res) })
-                break
-            }
-          },
-        })
-        break
-      case Permission.PermissionStatus.authorized:
-        cb && cb({ code: result })
-        break
-      default:
-        showToast({
-          content: 'permission: query error',
-        })
-        cb && cb({ error: new Error(result) })
-        break
-    }
-  }
-}
-
-const bgService = new BackgroundService()
-
-class BgServiceMgr {
+export class BgServiceMgr {
   constructor() {
-    this._instance = bgService
+    this._instance = new Map()
     this._eventBus = new EventBus()
     this._onMessage = null
   }
 
   instance(url) {
-    this._instance.url = url
-    return this._instance
+    if (this._instance.has(url)) {
+      const ins = this._instance.get(url)
+      ins.BgService = this
+      return ins
+    }
+
+    const bgService = new BackgroundService(url)
+    bgService.BgService = this
+    this._instance.set(url, bgService)
+    return bgService
   }
 
   postMessage(params) {
@@ -241,9 +184,11 @@ class BgServiceMgr {
   }
 
   stopAll() {
-    return appService.getAllAppServices().forEach(v => {
-      new BackgroundService(v).stop()
+    this._instance.forEach(v => {
+      v.stop()
     })
+
+    this._instance.clear()
   }
 
   offMessage() {
@@ -251,20 +196,20 @@ class BgServiceMgr {
   }
 
   disposePage() {
-    // NOTE: 内存不能正确释放的问题，所以只能手动将 onMessage 取消，释放内存
-    // this._instance.offMessage()
+    this._instance.forEach(v => {
+      v.onMessage = null
+      v.BgService = null
+    })
+
+    this._instance.clear()
   }
 
   disposeService() {
     this.offMessage()
   }
 
-  dispose() {
+  disposeApp() {
     this.disposePage()
     this.disposeService()
-
-    this._eventBus.clear()
   }
 }
-
-export const BgService = new BgServiceMgr()

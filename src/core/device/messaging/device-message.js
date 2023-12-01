@@ -1,6 +1,6 @@
-import { MessageBuilder } from '../../../shared/message'
-import { wrapperMessage } from '../../common/message'
-import { getPackageInfo } from '../../common/common'
+import { MessageBuilder } from '../../../shared/message.js'
+import { wrapperMessage } from '../../common/message.js'
+import { getPackageInfo } from '../../common/common.js'
 
 const appDevicePort = 20
 const appSidePort = 0

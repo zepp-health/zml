@@ -1,4 +1,4 @@
-import { isHmAppDefined } from '../../shared/js-module'
+import { isHmAppDefined } from '../../shared/js-module.js'
 
 let _r = null
 

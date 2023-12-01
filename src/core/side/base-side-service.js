@@ -1,5 +1,5 @@
-import { merge } from '../common/merge'
-import { pluginService } from '../common/plugin-service'
+import { merge } from '../common/merge.js'
+import { pluginService } from '../common/plugin-service.js'
 
 function BaseSideService({
   state = {},

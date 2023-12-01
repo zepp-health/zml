@@ -1,4 +1,4 @@
-export const settings = {
+export const settingsLib = {
   onChange(cb) {
     if (!cb) return this
     settings.settingsStorage.addListener('change', cb)

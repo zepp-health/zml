@@ -1,4 +1,4 @@
-import { messaging } from './side-message'
+import { messaging } from './side-message.js'
 
 function addBaseURL(opts) {
   const params = {

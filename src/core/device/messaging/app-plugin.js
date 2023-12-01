@@ -1,5 +1,5 @@
-import { createDeviceMessage } from './device-message'
-import { httpRequest } from './httpRequest'
+import { createDeviceMessage } from './device-message.js'
+import { httpRequest } from './httpRequest.js'
 
 export function appPlugin(opts) {
 	const messaging = createDeviceMessage()

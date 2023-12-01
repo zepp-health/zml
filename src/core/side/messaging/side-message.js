@@ -1,5 +1,5 @@
-import { MessageBuilder } from '../../../shared/message'
-import { wrapperMessage } from '../../common/message'
+import { MessageBuilder } from '../../../shared/message.js'
+import { wrapperMessage } from '../../common/message.js'
 
 const messageBuilder = new MessageBuilder()
 

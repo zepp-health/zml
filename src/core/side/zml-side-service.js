@@ -1,10 +1,10 @@
-import { BaseSideService } from './base-side-service'
-import { loggerPlugin } from './logger/logger-plugin'
-import { messagingPlugin } from './messaging/messaging-plugin'
-import { fileTransferPlugin } from './file-transfer/file-transfer-plugin'
-import { downloadPlugin } from './download/download-plugin'
-import { convertPlugin } from './convert-image/convert-image-plugin'
-import { settingsPlugin } from './settings/settings-plugin'
+import { BaseSideService } from './base-side-service.js'
+import { loggerPlugin } from './logger/logger-plugin.js'
+import { messagingPlugin } from './messaging/messaging-plugin.js'
+import { fileTransferPlugin } from './file-transfer/file-transfer-plugin.js'
+import { downloadPlugin } from './download/download-plugin.js'
+import { convertPlugin, convertLib } from './convert-image/convert-image-plugin.js'
+import { settingsPlugin, settingsLib } from './settings/settings-plugin.js'
 
 BaseSideService.use(loggerPlugin)
   .use(settingsPlugin)
@@ -13,4 +13,4 @@ BaseSideService.use(loggerPlugin)
   .use(downloadPlugin)
   .use(convertPlugin)
 
-export { BaseSideService }
+export { BaseSideService, convertLib, settingsLib }

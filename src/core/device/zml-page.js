@@ -1,8 +1,15 @@
-import { BasePage } from './base-page'
-import { loggerPlugin } from './logger/logger-plugin'
-import { pagePlugin as messagingPlugin } from './messaging/page-plugin'
-import { pagePlugin as fileTransferPlugin } from './file-transfer/fileTransfer-plugin'
+import { BasePage } from './base-page.js'
+import { pagePlugin as globalPlugin } from './global/page-plugin.js'
+import { pagePlugin as disposablePlugin } from './disposable/page-plugin.js'
+import { loggerPlugin } from './logger/logger-plugin.js'
+import { pagePlugin as messagingPlugin } from './messaging/page-plugin.js'
+import { pagePlugin as fileTransferPlugin } from './file-transfer/fileTransfer-plugin.js'
 
-BasePage.use(loggerPlugin).use(messagingPlugin).use(fileTransferPlugin)
+BasePage
+  .use(globalPlugin)
+  .use(disposablePlugin)
+  .use(loggerPlugin)
+  .use(messagingPlugin)
+  .use(fileTransferPlugin)
 
 export { BasePage }

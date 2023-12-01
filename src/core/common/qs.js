@@ -1,4 +1,4 @@
-import { _r } from './common'
+import { _r } from './common.js'
 
 export function stringify(obj) {
   if (!obj || typeof obj !== 'object') {

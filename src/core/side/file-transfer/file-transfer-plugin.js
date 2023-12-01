@@ -1,4 +1,4 @@
-import { fileTransferLib } from './side-file-transfer'
+import { fileTransferLib } from './side-file-transfer.js'
 
 export function fileTransferPlugin () {
 	return {

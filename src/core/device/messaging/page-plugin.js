@@ -1,4 +1,4 @@
-import { httpRequest } from './httpRequest'
+import { httpRequest } from './httpRequest.js'
 
 function getDeviceMessage() {
   const { messaging } = getApp()._options.globalData
