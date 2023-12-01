@@ -28,6 +28,7 @@ const dist2 = 'dist/2.0/'
 const dist3 = 'dist/3.0/'
 
 export default [
+  /* #region  zml app 3.0 */
   {
     input: 'src/core/device/zml-app.js',
     output: [
@@ -41,7 +42,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'3.0'`
+        __API_LEVEL__: `'3.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -54,6 +55,8 @@ export default [
       }),
     ],
   },
+  /* #endregion */
+  /* #region  zml page 3.0 */
   {
     input: 'src/core/device/zml-page.js',
     output: [
@@ -67,7 +70,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'3.0'`
+        __API_LEVEL__: `'3.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -80,11 +83,13 @@ export default [
       }),
     ],
   },
+  /* #endregion */
+  /* #region  zml side-service 3.0 */
   {
     input: 'src/core/side/zml-side-service.js',
     output: [
       {
-        file:  'dist/zml-side.js',
+        file: 'dist/zml-side.js',
         format: 'es',
         plugins,
       },
@@ -93,7 +98,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'3.0'`
+        __API_LEVEL__: `'3.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -102,6 +107,8 @@ export default [
       }),
     ],
   },
+  /* #endregion */
+  /* #region  base-app base-page base-side-service */
   {
     input: 'src/core/device/base-app.js',
     output: [
@@ -168,55 +175,74 @@ export default [
       commonjs(),
     ],
   },
-  // {
-  //   input: 'src/core/device/bg-service/bg-service-plugin.js',
-  //   output: {
-  //     file: 'dist/module/bg-service/plugin.js',
-  //     format: 'es',
-  //     plugins,
-  //   },
-  //   plugins: [
-  //     replace({
-  //       preventAssignment: true,
-  //       __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-  //     }),
-  //     nodeResolve(),
-  //     commonjs(),
-  //   ],
-  // },
-  // {
-  //   input: 'src/core/device/bg-service/bg-service.js',
-  //   output: {
-  //     file: 'dist/module/bg-service/index.js',
-  //     format: 'es',
-  //     plugins,
-  //   },
-  //   plugins: [
-  //     replace({
-  //       preventAssignment: true,
-  //       __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-  //     }),
-  //     nodeResolve(),
-  //     commonjs(),
-  //   ],
-  // },
-  // {
-  //   input: 'src/core/common/qs.js',
-  //   output: {
-  //     file: 'dist/module/qs/index.js',
-  //     format: 'es',
-  //     plugins,
-  //   },
-  //   plugins: [
-  //     replace({
-  //       preventAssignment: true,
-  //       __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-  //     }),
-  //     nodeResolve(),
-  //     commonjs(),
-  //   ],
-  // },
-  // messaging
+  /* #endregion */
+  /* #region  bg-service 3.0 */
+  {
+    input: 'src/core/device/app-service/app-plugin.js',
+    output: {
+      file: dist3 + 'module/app-service/plugin/app.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/device/app-service/page-plugin.js',
+    output: {
+      file: dist3 + 'module/app-service/plugin/page.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/device/app-service/service-plugin.js',
+    output: {
+      file: dist3 + 'module/app-service/plugin/app-service.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/common/qs.js',
+    output: {
+      file: dist3 + 'module/qs/index.js',
+      format: 'es',
+      plugins,
+    },
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  /* #endregion */
+  /* #region  messaging 1.0 2.0 3.0 */
   {
     input: 'src/core/device/messaging/app-plugin.js',
     output: {
@@ -228,7 +254,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'1.0'`
+        __API_LEVEL__: `'1.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -245,7 +271,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'2.0'`
+        __API_LEVEL__: `'2.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -262,7 +288,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'3.0'`
+        __API_LEVEL__: `'3.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -279,7 +305,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'1.0'`
+        __API_LEVEL__: `'1.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -296,7 +322,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'2.0'`
+        __API_LEVEL__: `'2.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -313,7 +339,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'3.0'`
+        __API_LEVEL__: `'3.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -349,7 +375,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
-        __API_LEVEL__: `'3.0'`
+        __API_LEVEL__: `'3.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -358,4 +384,64 @@ export default [
       }),
     ],
   },
+  /* #endregion */
+  /* #region  disposable 3.0 */
+  {
+    input: 'src/core/device/disposable/index.js',
+    output: [
+      {
+        file: dist3 + 'module/disposable/index.js',
+        format: 'es',
+        plugins,
+      },
+    ],
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'3.0'`,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/device/disposable/app-plugin.js',
+    output: [
+      {
+        file: dist3 + 'module/disposable/plugin/app.js',
+        format: 'es',
+        plugins,
+      },
+    ],
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'3.0'`,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/core/device/disposable/page-plugin.js',
+    output: [
+      {
+        file: dist3 + 'module/disposable/plugin/page.js',
+        format: 'es',
+        plugins,
+      },
+    ],
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'3.0'`,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  /* #endregion */
 ]
