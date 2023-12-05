@@ -1,6 +1,6 @@
 {
   "name": "@zeppos/zml",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "A Mini Library of ZeppOS MiniApp",
   "zeppos": true,
   "typings": "./zml.d.ts",
@@ -26,7 +26,6 @@
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
     "format": "prettier src -write",
     "test": "node --import ./env/zeppos-env.js  --test src"
-
   },
   "repository": {
     "type": "git",
