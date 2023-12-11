@@ -48,9 +48,9 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './promise-1.0', replacement: './promise-3.0' },
-          { find: './event', replacement: './device-event' },
-          { find: './setTimeout', replacement: './device-setTimeout' },
+          { find: './promise-1.0.js', replacement: './promise-3.0.js' },
+          { find: './event.js', replacement: './device-event.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
         ],
       }),
     ],
@@ -76,9 +76,9 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './promise-1.0', replacement: './promise-3.0' },
-          { find: './event', replacement: './device-event' },
-          { find: './setTimeout', replacement: './device-setTimeout' },
+          { find: './promise-1.0.js', replacement: './promise-3.0.js' },
+          { find: './event.js', replacement: './device-event.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
         ],
       }),
     ],
@@ -103,7 +103,7 @@ export default [
       nodeResolve(),
       commonjs(),
       alias({
-        entries: [{ find: './promise-1.0', replacement: './promise-3.0' }],
+        entries: [{ find: './promise-1.0.js', replacement: './promise-3.0.js' }],
       }),
     ],
   },
@@ -127,8 +127,8 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './event', replacement: './device-event' },
-          { find: './setTimeout', replacement: './device-setTimeout' },
+          { find: './event.js', replacement: './device-event.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
         ],
       }),
     ],
@@ -151,8 +151,8 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './event', replacement: './device-event' },
-          { find: './setTimeout', replacement: './device-setTimeout' },
+          { find: './event.js', replacement: './device-event.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
         ],
       }),
     ],
@@ -345,9 +345,9 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './promise-1.0', replacement: './promise-3.0' },
-          { find: './event', replacement: './device-event' },
-          { find: './setTimeout', replacement: './device-setTimeout' },
+          { find: './promise-1.0.js', replacement: './promise-3.0.js' },
+          { find: './event.js', replacement: './device-event.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
         ],
       }),
     ],
@@ -380,7 +380,7 @@ export default [
       nodeResolve(),
       commonjs(),
       alias({
-        entries: [{ find: './promise-1.0', replacement: './promise-3.0' }],
+        entries: [{ find: './promise-1.0.js', replacement: './promise-3.0.js' }],
       }),
     ],
   },
