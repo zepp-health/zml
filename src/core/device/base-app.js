@@ -1,5 +1,6 @@
 import { merge } from '../common/merge.js'
 import { pluginService } from '../common/plugin-service.js'
+import { loggerPlugin } from './logger/logger-plugin.js'
 
 function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
   const opts = {
@@ -27,5 +28,7 @@ function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
 
 merge(BaseApp, pluginService)
 BaseApp.init()
+
+BaseApp.use(loggerPlugin)
 
 export { BaseApp, merge }

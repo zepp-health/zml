@@ -1,5 +1,7 @@
 import { merge } from '../common/merge.js'
 import { pluginService } from '../common/plugin-service.js'
+import { loggerPlugin } from './logger/logger-plugin.js'
+import { settingsPlugin  } from './settings/settings-plugin.js'
 
 function BaseSideService({
   state = {},
@@ -43,5 +45,8 @@ function BaseSideService({
 merge(BaseSideService, pluginService)
 
 BaseSideService.init()
+
+BaseSideService.use(loggerPlugin)
+BaseSideService.use(settingsPlugin)
 
 export { BaseSideService, merge }

@@ -4,18 +4,20 @@ export function getFileTransfer(fileTransfer) {
    *     device supported newfile and file
    *     side supported file
    */
-
-  if (!fileTransfer) {
-    throw new Error('FileTransfer require api 3.0')
-  }
-
   return {
+    canUseFileTransfer() {
+      if (typeof fileTransfer === 'undefined') {
+        console.log('WARNING: FileTransfer require API_LEVEL 3.0')
+        return false
+      }
+      return true
+    },
     onFile(cb) {
       if (!cb) {
         return this
       }
 
-      if (typeof fileTransfer === 'undefined') {
+      if (!this.canUseFileTransfer()) {
         return this
       }
 
@@ -31,7 +33,7 @@ export function getFileTransfer(fileTransfer) {
         return this
       }
 
-      if (typeof fileTransfer === 'undefined') {
+      if (!this.canUseFileTransfer()) {
         return this
       }
 
@@ -47,7 +49,7 @@ export function getFileTransfer(fileTransfer) {
       return this
     },
     offFile() {
-      if (typeof fileTransfer === 'undefined') {
+      if (!this.canUseFileTransfer()) {
         return this
       }
 
@@ -56,14 +58,14 @@ export function getFileTransfer(fileTransfer) {
       return this
     },
     getFile() {
-      if (typeof fileTransfer === 'undefined') {
+      if (!this.canUseFileTransfer()) {
         return null
       }
 
       return fileTransfer.inbox.getNextFile()
     },
     sendFile(path, opts) {
-      if (typeof fileTransfer === 'undefined') {
+      if (!this.canUseFileTransfer()) {
         throw new Error('fileTransfer is not available')
       }
 

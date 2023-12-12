@@ -5,7 +5,7 @@ import { nativeBle } from './ble.js'
 import { json2buf, buf2json, bin2hex, buf2str, str2buf } from './data.js'
 import { isZeppOS, isPlainObject } from '../core/common/common.js'
 import { setTimeout, clearTimeout } from './setTimeout.js'
-import { Promise } from './promise-1.0.js'
+import { Promise } from './promise.js'
 
 const logger = isZeppOS()
   ? Logger.getLogger('device-message')

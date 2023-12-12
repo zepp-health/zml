@@ -48,9 +48,9 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './promise-1.0.js', replacement: './promise-3.0.js' },
-          { find: './event.js', replacement: './device-event.js' },
-          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
+          { find: './promise.js', replacement: './promise-3.0.js' },
+          { find: './event.js', replacement: './device-event-3.0.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout-3.0.js' },
         ],
       }),
     ],
@@ -76,9 +76,9 @@ export default [
       commonjs(),
       alias({
         entries: [
-          { find: './promise-1.0.js', replacement: './promise-3.0.js' },
-          { find: './event.js', replacement: './device-event.js' },
-          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
+          { find: './promise.js', replacement: './promise-3.0.js' },
+          { find: './event.js', replacement: './device-event-3.0.js' },
+          { find: './setTimeout.js', replacement: './device-setTimeout-3.0.js' },
         ],
       }),
     ],
@@ -102,9 +102,6 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
-      alias({
-        entries: [{ find: './promise-1.0.js', replacement: './promise-3.0.js' }],
-      }),
     ],
   },
   /* #endregion */
@@ -122,15 +119,10 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'1.0'`,
       }),
       nodeResolve(),
       commonjs(),
-      alias({
-        entries: [
-          { find: './event.js', replacement: './device-event.js' },
-          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
-        ],
-      }),
     ],
   },
   {
@@ -146,15 +138,10 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'1.0'`,
       }),
       nodeResolve(),
       commonjs(),
-      alias({
-        entries: [
-          { find: './event.js', replacement: './device-event.js' },
-          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
-        ],
-      }),
     ],
   },
   {
@@ -170,6 +157,7 @@ export default [
       replace({
         preventAssignment: true,
         __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'1.0'`,
       }),
       nodeResolve(),
       commonjs(),
@@ -258,6 +246,12 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './setTimeout.js', replacement: './device-setTimeout-1.0.js' },
+          { find: './promise.js', replacement: './promise-1.0.js' },
+        ],
+      }),
     ],
   },
   {
@@ -275,6 +269,12 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './setTimeout.js', replacement: './device-setTimeout-2.0.js' },
+          { find: './promise.js', replacement: './promise-2.0.js' },
+        ],
+      }),
     ],
   },
   {
@@ -292,6 +292,13 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
+      alias({
+        entries: [
+          { find: './setTimeout.js', replacement: './device-setTimeout-3.0.js' },
+          { find: './promise.js', replacement: './promise-3.0.js' },
+          { find: './event.js', replacement: './device-event-3.0.js' },
+        ],
+      }),
     ],
   },
   {
@@ -343,13 +350,6 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
-      alias({
-        entries: [
-          { find: './promise-1.0.js', replacement: './promise-3.0.js' },
-          { find: './event.js', replacement: './device-event.js' },
-          { find: './setTimeout.js', replacement: './device-setTimeout.js' },
-        ],
-      }),
     ],
   },
   {
@@ -379,9 +379,6 @@ export default [
       }),
       nodeResolve(),
       commonjs(),
-      alias({
-        entries: [{ find: './promise-1.0.js', replacement: './promise-3.0.js' }],
-      }),
     ],
   },
   /* #endregion */
