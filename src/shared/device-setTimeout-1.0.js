@@ -2,8 +2,6 @@ export function clearTimeout(timerRef) {
 	timerRef && timer.stopTimer(timerRef)
 }
 
-globalThis.clearTimeout = clearTimeout
-
 export function setTimeout(func, ms) {
 	const timer1 = timer.createTimer(
 		ms || 1,
@@ -18,5 +16,11 @@ export function setTimeout(func, ms) {
 	return timer1
 }
 
-globalThis.setTimeout = setTimeout
-globalThis.Buffer = DeviceRuntimeCore.Buffer
+if (typeof globalThis.setTimeout === 'undefined') {
+	globalThis.setTimeout = setTimeout
+	globalThis.clearTimeout = clearTimeout
+}
+
+if (typeof globalThis.Buffer === 'undefined') {
+	globalThis.Buffer = DeviceRuntimeCore.Buffer
+}
