@@ -6,12 +6,10 @@ export function appServicePlugin() {
   return {
     onDestroy() {
       BgService.disposeService()
-    }
+    },
   }
 }
 
-export {
-  BgService
-}
+export { BgService }
 
 export const API_LEVEL = __API_LEVEL__

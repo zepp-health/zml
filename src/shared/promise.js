@@ -1,5 +1,3 @@
-const _Promise = Promise
+const promise = Promise
 
-export {
-	_Promise as Promise,
-}
+export { promise as Promise }

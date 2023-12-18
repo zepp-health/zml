@@ -184,7 +184,7 @@ export class BgServiceMgr {
   }
 
   stopAll() {
-    this._instance.forEach(v => {
+    this._instance.forEach((v) => {
       v.stop()
     })
 
@@ -196,7 +196,7 @@ export class BgServiceMgr {
   }
 
   disposePage() {
-    this._instance.forEach(v => {
+    this._instance.forEach((v) => {
       v.onMessage = null
       v.BgService = null
     })

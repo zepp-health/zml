@@ -1,10 +1,10 @@
 import { IDisposable } from '../../common/disposable.js'
-import  * as Disposable  from '../../common/idisposable.js'
+import * as Disposable from '../../common/idisposable.js'
 import { AppGlobalThis, getAppId } from '../../common/global.js'
 
 class ZeppOSDisposeObj {
   constructor(id) {
-    this.name = "AppDispose_" + id
+    this.name = 'AppDispose_' + id
     console.log(this.name, 'create')
   }
 
@@ -26,8 +26,8 @@ export function appPlugin(opt) {
       IDisposable,
     },
     G: {
-      App: _g
-    }
+      App: _g,
+    },
   }
 
   return {
@@ -42,8 +42,6 @@ export function getAppDisposer() {
   return new AppGlobalThis().getValue(Disposable.dispose)
 }
 
-export {
-	Disposable
-}
+export { Disposable }
 
 export const API_LEVEL = __API_LEVEL__

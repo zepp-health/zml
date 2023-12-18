@@ -15,7 +15,4 @@ export function getModuleDisposer() {
   return new ModuleGlobalThis().getValue(Disposable.dispose)
 }
 
-export {
-	IDisposable,
-	Disposable
-}
+export { IDisposable, Disposable }

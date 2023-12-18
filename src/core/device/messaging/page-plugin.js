@@ -29,7 +29,7 @@ export function pagePlugin(opts) {
     call(data) {
       return this.messaging.call(data)
     },
-		httpRequest
+    httpRequest,
   }
 }
 

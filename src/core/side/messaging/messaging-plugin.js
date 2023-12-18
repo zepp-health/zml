@@ -14,17 +14,17 @@ function addBaseURL(opts) {
 }
 
 export function messagingPlugin() {
-	return {
-		onInit() {
+  return {
+    onInit() {
       this.messaging = messaging
-			this._onCall = this.onCall?.bind(this)
+      this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
       this.messaging.onCall(this._onCall).onRequest(this.__onRequest.bind(this))
 
-			this.messaging.start()
-		},
-		onDestroy() {
-			if (this._onCall) {
+      this.messaging.start()
+    },
+    onDestroy() {
+      if (this._onCall) {
         this.messaging.offOnCall(this._onCall)
       }
 
@@ -33,21 +33,21 @@ export function messagingPlugin() {
       }
 
       this.messaging.stop()
-		},
-		request(data, opts = {}) {
+    },
+    request(data, opts = {}) {
       return this.messaging.request(data, opts)
     },
     call(data) {
       return this.messaging.call(data)
     },
-		__onRequest(req, res) {
+    __onRequest(req, res) {
       if (req.method === 'http.request') {
         return this.httpRequestHandler(req, res)
       } else {
         return this._onRequest(req, res)
       }
     },
-		fetch(opt) {
+    fetch(opt) {
       return fetch(addBaseURL(opt))
     },
     httpRequestHandler(req, res) {
@@ -67,7 +67,7 @@ export function messagingPlugin() {
           })
         })
     },
-	}
+  }
 }
 
 export const API_LEVEL = __API_LEVEL__

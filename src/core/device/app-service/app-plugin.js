@@ -6,7 +6,7 @@ export function appPlugin(opt) {
   return {
     onDestroy() {
       opt.$m.BgService.disposeApp()
-    }
+    },
   }
 }
 

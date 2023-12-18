@@ -1,4 +1,9 @@
-import { isZeppOS1, isZeppOS2, isSideService, _r } from '../core/common/common.js'
+import {
+  isZeppOS1,
+  isZeppOS2,
+  isSideService,
+  _r,
+} from '../core/common/common.js'
 
 let logger = null
 

@@ -1,13 +1,11 @@
 import { ModuleGlobalThis, getModuleId } from '../../common/global.js'
 import { getAppGlobalModules } from '../utils.js'
 
-const [
-  { IDisposable, Disposable },
-] = getAppGlobalModules('Dispose')
+const [{ IDisposable, Disposable }] = getAppGlobalModules('Dispose')
 
 class ZeppOSDisposeObj {
   constructor(id) {
-    this.name = "ModuleDispose_" + id
+    this.name = 'ModuleDispose_' + id
     console.log(this.name, 'create')
   }
 

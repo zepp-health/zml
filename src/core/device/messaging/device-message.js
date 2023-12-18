@@ -14,5 +14,3 @@ export function createDeviceMessage() {
 
   return wrapperMessage(messageBuilder)
 }
-
-

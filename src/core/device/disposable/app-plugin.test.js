@@ -12,7 +12,7 @@ describe('app-plugin', () => {
     const result = App(
       BaseApp({
         onCreate() {
-					console.log(this[Disposable.dispose])
+          console.log(this[Disposable.dispose])
           ok(this['$m'])
           spy()
         },
@@ -24,20 +24,20 @@ describe('app-plugin', () => {
     ok(result['$m'])
   })
 
-	it('destroy', (t) => {
+  it('destroy', (t) => {
     BaseApp.use(appPlugin)
     const spy = t.mock.fn()
 
     const result = App(
       BaseApp({
-				onDestroy() {
-					spy()
-				}
+        onDestroy() {
+          spy()
+        },
       }),
     )
 
     result.onDestroy()
-		equal(spy.mock.callCount(), 1)
+    equal(spy.mock.callCount(), 1)
     ok(result['$m'])
   })
 })

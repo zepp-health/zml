@@ -73,10 +73,12 @@ export function wrapperMessage(messageBuilder) {
             break
         }
 
-
         cb &&
           cb(payload, (error, data, opts = {}) => {
-            if (ctx.request.contentType === MessagePayloadDataTypeOp.JSON && payload?.jsonrpc === HM_RPC) {
+            if (
+              ctx.request.contentType === MessagePayloadDataTypeOp.JSON &&
+              payload?.jsonrpc === HM_RPC
+            ) {
               if (error) {
                 return ctx.response({
                   data: {
@@ -96,7 +98,7 @@ export function wrapperMessage(messageBuilder) {
 
             return ctx.response({
               data,
-              ...opts
+              ...opts,
             })
           })
       })
