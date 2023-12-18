@@ -1,7 +1,8 @@
 import { Logger } from '../../shared/logger.js'
-import { isZeppOS, isPlainObject } from './common.js'
+import { isZeppOS } from './common.js'
 import { MessagePayloadDataTypeOp } from '../../shared/message.js'
 import { buf2str, buf2json, buf2bin } from '../../shared/data.js'
+import { isPlainObject } from '../../shared/utils.js'
 
 const logger = Logger.getLogger('message-builder')
 

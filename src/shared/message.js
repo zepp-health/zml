@@ -3,9 +3,11 @@ import { EventBus } from './event.js'
 import { Deferred, timeout } from './defer.js'
 import { nativeBle } from './ble.js'
 import { json2buf, buf2json, bin2hex, buf2str, str2buf } from './data.js'
-import { isZeppOS, isPlainObject } from '../core/common/common.js'
+import { isZeppOS } from '../core/common/common.js'
 import { setTimeout, clearTimeout } from './setTimeout.js'
 import { Promise } from './promise.js'
+import { Buffer } from './buffer.js'
+import { isPlainObject } from './utils.js'
 
 const logger = isZeppOS()
   ? Logger.getLogger('device-message')
@@ -974,7 +976,7 @@ export class MessageBuilder extends EventBus {
   }
 
   errorIfSideServiceDisconnect() {
-    if (!isZeppOS) {
+    if (!isZeppOS()) {
       return
     }
 

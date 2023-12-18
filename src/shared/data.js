@@ -1,3 +1,5 @@
+import { Buffer } from './buffer.js'
+
 export function json2buf(json) {
   return str2buf(json2str(json))
 }

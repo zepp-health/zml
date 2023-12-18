@@ -1,4 +1,4 @@
-import { isHmAppDefined } from '../../shared/js-module.js'
+import { isHmAppDefined } from '../../shared/utils.js'
 
 let _r = null
 
@@ -98,8 +98,4 @@ export function isZeppOS() {
 
 export function isSideService() {
   return typeof messaging !== 'undefined'
-}
-
-export function isPlainObject(item) {
-  return (typeof item === 'object' && !Array.isArray(item) && item !== null)
 }
