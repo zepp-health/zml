@@ -104,15 +104,14 @@ class Session extends EventBus {
     this.id = id
     this.type = type // payloadType
     this.ctx = ctx
-    this.tempBuf = null
-    this.count = 0
+    this.chunks = []
+    this.count = -1
     this.finishChunk = null
-    logger.log('Session Created.')
   }
 
   addChunk(payload) {
     if (payload.opCode === MessagePayloadOpCode.Finished) {
-      this.count = payload.seqId
+      this.count = payload.seqId + 1
       this.finishChunk = payload
     }
 
@@ -132,19 +131,33 @@ class Session extends EventBus {
       return
     }
 
-    if (!this.tempBuf) this.tempBuf = Buffer.alloc(payload.totalLength)
-
-    const offset = (payload.seqId - 1) * HM_MESSAGE_PROTO_PAYLOAD
-    payload.payload.copy(this.tempBuf, offset)
-
+    this.chunks.push(payload)
     this.checkIfReceiveAllChunks()
   }
 
   checkIfReceiveAllChunks() {
-    // TODO: Check if all chunks are received
+    if (this.count !== this.chunks.length) return
     if (!this.finishChunk) return
 
-    this.finishChunk.payload = this.tempBuf
+    let bufList = []
+
+    for (let i = 0; i < this.count; i++) {
+      const chunk = this.chunks[i]
+
+      if (!chunk || chunk.seqId !== i) {
+        bufList = null
+        this.releaseBuf()
+        this.emit('error', Error('receive data error'))
+        return
+      }
+
+      bufList.push(chunk.payload)
+    }
+
+    this.chunks = []
+    this.finishChunk.payload = Buffer.concat(bufList)
+    bufList = null
+
     this.finishChunk.payloadLength = this.finishChunk.payload.byteLength
 
     if (this.finishChunk.totalLength !== this.finishChunk.payloadLength) {
@@ -166,12 +179,8 @@ class Session extends EventBus {
     this.emit('data', this.finishChunk)
   }
 
-  getLength() {
-    return this.tempBufLength
-  }
-
   releaseBuf() {
-    this.tempBuf = null
+    this.chunks = []
     this.finishChunk = null
     this.count = 0
   }
@@ -267,7 +276,6 @@ export class MessageBuilder extends EventBus {
     this.ble = ble
     this.sendMsg = this.getSafeSend()
     this.chunkSize = MESSAGE_PAYLOAD
-    this.tempBuf = null
     this.handlers = new Map()
 
     this.shakeTask = null
@@ -562,7 +570,7 @@ export class MessageBuilder extends EventBus {
     const _buf = Buffer.alloc(hmDataSize)
     const traceId = requestId ? requestId : genTraceId()
     const spanId = genSpanId()
-    let seqId = 1
+    let seqId = 0
 
     const count = Math.ceil(userDataLength / hmDataSize)
 
