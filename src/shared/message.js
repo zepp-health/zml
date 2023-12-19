@@ -1,6 +1,6 @@
 import { Logger } from './logger.js'
 import { EventBus } from './event.js'
-import { Deferred, timeout } from './defer.js'
+import { Deferred } from './defer.js'
 import { nativeBle } from './ble.js'
 import { json2buf, buf2json, bin2hex, buf2str, str2buf } from './data.js'
 import { isZeppOS } from '../core/common/common.js'
@@ -1086,8 +1086,24 @@ export class MessageBuilder extends EventBus {
         dataType: contentType,
       }
       const requestId = genTraceId()
+
       const requestPromiseTask = Deferred()
       opts = Object.assign(defaultOpts, opts)
+
+      let timer = setTimeout(() => {
+        timer = null
+
+        requestPromiseTask.reject(
+          new MessageError(MessageErrorCode.TIMEOUT, 'request timeout'),
+        )
+      }, opts.timeout)
+
+      let cancelTimer = () => {
+        if (timer) {
+          clearTimeout(timer)
+          timer = null
+        }
+      }
 
       const transact = ({ traceId, payload, dataType }) => {
         this.errorIfBleDisconnect()
@@ -1122,8 +1138,8 @@ export class MessageBuilder extends EventBus {
         requestPromiseTask.resolve(result)
       }
 
-      // this.on('response', transact)
       this.handlers.set(requestId, transact)
+
       if (Buffer.isBuffer(data)) {
         this.sendBuf({
           requestId,
@@ -1170,37 +1186,14 @@ export class MessageBuilder extends EventBus {
         })
       }
 
-      let hasReturned = false
-
-      return Promise.race([
-        timeout(opts.timeout, (resolve, reject) => {
-          if (hasReturned) {
-            return resolve()
-          }
-
-          DEBUG &&
-            logger.error(
-              `request timeout in ${opts.timeout}ms error=> %d data=> %j`,
-              requestId,
-              data,
-            )
-
-          reject(
-            new MessageError(
-              MessageErrorCode.REQUEST_TIME_OUT,
-              `request timed out in ${opts.timeout}ms.`,
-            ),
-          )
-        }),
-        requestPromiseTask.promise.finally(() => {
-          hasReturned = true
-        }),
-      ])
+      return requestPromiseTask.promise
         .catch((e) => {
           DEBUG && logger.error('error %j', e)
           throw e
         })
         .finally(() => {
+          DEBUG && logger.debug('release request id=>%d', requestId)
+          cancelTimer()
           this.handlers.delete(requestId)
         })
     }

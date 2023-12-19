@@ -7,7 +7,7 @@ export function setTimeout(func, ms) {
     ms || 1,
     ms || 1,
     function () {
-      globalThis.clearTimeout(timer1)
+      clearTimeout(timer1)
       func && func()
     },
     {},

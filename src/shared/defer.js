@@ -26,20 +26,3 @@ export function delay(ms) {
 
   return defer.promise
 }
-
-export function timeout(ms, cb) {
-  const defer = Deferred()
-  ms = ms || 1000
-
-  const wait = setTimeout(() => {
-    clearTimeout(wait)
-
-    if (cb) {
-      cb && cb(defer.resolve, defer.reject)
-    } else {
-      defer.reject('Timed out in ' + ms + 'ms.')
-    }
-  }, ms)
-
-  return defer.promise
-}
