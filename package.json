@@ -25,7 +25,10 @@
     "dev": "rollup -w -c rollup.config.mjs",
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
     "format": "prettier src -write",
-    "test": "node --import ./env/zeppos-env.js  --test src"
+    "test": "node --import ./env/zeppos-env.js  --test src",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "repository": {
     "type": "git",
@@ -41,6 +44,7 @@
     "@rollup/plugin-terser": "^0.4.3",
     "es6-promise": "^4.2.8",
     "prettier": "^3.0.2",
-    "rollup": "^3.28.1"
+    "rollup": "^3.28.1",
+    "vitepress": "^1.0.0-rc.32"
   }
 }

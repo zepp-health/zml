@@ -131,3 +131,6 @@ dist
 
 yarn.lock
 .vscode
+
+docs/.vitepress/dist
+docs/.vitepress/cache
