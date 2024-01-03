@@ -44,8 +44,14 @@ export default defineConfig({
       }
     }
   },
+  head: [
+    ['link', {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/zml/img/favicons/favicon-32x32.png'}],
+    ['link', {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/zml/img/favicons/favicon-16x16.png'}],
+    ['link', {rel: 'shortcut icon', href: '/zml/img/favicons/favicon.ico'}],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: '/img/logo.svg',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Docs', link: '/getting-started' },
