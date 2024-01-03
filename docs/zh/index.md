@@ -5,6 +5,9 @@ layout: home
 hero:
   name: "ZML"
   text: "A mini development library for Zepp OS mini programs"
+  image:
+    src: /img/logo.svg
+    alt: Zml Logo
   actions:
     - theme: brand
       text: Documents
