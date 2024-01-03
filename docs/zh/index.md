@@ -4,21 +4,21 @@ layout: home
 
 hero:
   name: "ZML"
-  text: "A mini development library for Zepp OS mini programs"
+  text: "Zepp OS 小程序开发库"
   image:
     src: /img/logo.svg
     alt: Zml Logo
   actions:
     - theme: brand
-      text: Documents
+      text: 文档
       link: /zh/getting-started
 
 features:
-  - title: Simple
-    details: Write your application in one line
-  - title: Powerful
-    details: Interact with Zepp OS API
-  - title: Batteries included
-    details: Everything you need, right out of the box.
+  - title: 简单
+    details: 只需要一行代码就能使用功能
+  - title: 强大
+    details: 集成了通信能力和网络能力
+  - title: 无需配置
+    details: 告别繁琐的配置，专注于业务逻辑
 ---
 

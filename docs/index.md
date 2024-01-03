@@ -1,10 +1,14 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+titleTemplate: zepp-health/zml
 
 hero:
   name: "ZML"
   text: "A mini development library for Zepp OS mini programs"
+  image:
+    src: /img/logo.svg
+    alt: Zml Logo
   actions:
     - theme: brand
       text: Documents
