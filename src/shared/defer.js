@@ -1,4 +1,4 @@
-import { setTimeout, clearTimeout } from './setTimeout.js'
+import { setTimeout } from './setTimeout.js'
 import { Promise } from './promise.js'
 
 export function Deferred() {
