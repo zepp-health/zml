@@ -31,15 +31,15 @@ export default defineConfig({
             text: '文档',
             items: [
               { text: '开始', link: './getting-started' },
-              // { text: 'API 参考', link: './api' }
+              { text: 'API 参考', link: './api' }
             ]
           },
-          // {
-          //   text: '常见问题',
-          //   items: [
-          //     { text: '已知问题', link: './known-issues' }
-          //   ]
-          // }
+          {
+            text: '常见问题',
+            items: [
+              { text: '已知问题', link: './known-issues' }
+            ]
+          }
         ],
       }
     }
@@ -75,15 +75,15 @@ export default defineConfig({
         text: 'Docs',
         items: [
           { text: 'Getting Started', link: '/getting-started' },
-          // { text: 'API Reference', link: '/api' }
+          { text: 'API Reference', link: '/api' }
         ]
       },
-      // {
-      //   text: 'FAQ',
-      //   items: [
-      //     { text: 'Known Issues', link: '/known-issues' }
-      //   ]
-      // }
+      {
+        text: 'FAQ',
+        items: [
+          { text: 'Known Issues', link: '/known-issues' }
+        ]
+      }
     ],
 
     socialLinks: [

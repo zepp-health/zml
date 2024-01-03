@@ -2,48 +2,232 @@
 outline: deep
 ---
 
-# Runtime API Examples
+# API Reference
 
-This page demonstrates usage of some of the runtime APIs provided by VitePress.
+## Usage
 
-The main `useData()` API can be used to access site, theme, and page data for the current page. It works in both `.md` and `.vue` files:
+### httpRequest API
 
-```md
-<script setup>
-import { useData } from 'vitepress'
+Use http requests directly
 
-const { theme, page, frontmatter } = useData()
-</script>
+#### Use in app.js
 
-## Results
+```javascript
+import { BaseApp } from '@zeppos/zml/base-app'
 
-### Theme Data
-<pre>{{ theme }}</pre>
-
-### Page Data
-<pre>{{ page }}</pre>
-
-### Page Frontmatter
-<pre>{{ frontmatter }}</pre>
+App(
+  BaseApp({
+    globalData: {},
+    onCreate() {},
+    onDestroy(opts) {},
+  }),
+)
 ```
 
-<script setup>
-import { useData } from 'vitepress'
+#### Use in page module
 
-const { site, theme, page, frontmatter } = useData()
-</script>
+```javascript
+import { BasePage } from '@zeppos/zml/base-page'
+Page(
+  BasePage({
+    state: {},
+    build() {},
 
-## Results
+    onInit() {
+      this.getYourData()
+    },
 
-### Theme Data
-<pre>{{ theme }}</pre>
+    getYourData() {
+      return this.httpRequest({
+        method: 'get',
+        url: 'your url',
+      })
+        .then((result) => {
+          console.log('result.status', result.status)
+          console.log('result.statusText', result.statusText)
+          console.log('result.headers', result.headers)
+          console.log('result.body', result.body)
+        })
+        .catch((error) => {
+          console.error('error=>', error)
+        })
+    },
+    onDestroy() {
+      console.log('page onDestroy invoked')
+    },
+  }),
+)
+```
 
-### Page Data
-<pre>{{ page }}</pre>
+#### Use in sideService module
 
-### Page Frontmatter
-<pre>{{ frontmatter }}</pre>
+```javascript
+import { BaseSideService } from '@zeppos/zml/base-side'
 
-## More
+AppSideService(BaseSideService())
+```
 
-Check out the documentation for the [full list of runtime APIs](https://vitepress.dev/reference/runtime-api#usedata).
+See [examples/helloworld1](https://github.com/zepp-health/zml/tree/main/examples/helloworld1)
+
+### request APIs
+
+APIs related to communication with the phone
+
+1. Use request, call to send data
+2. Use onRequest, onCall to receive data
+
+#### Use in app.js
+
+```javascript
+import { BaseApp } from '@zeppos/zml/base-app'
+
+App(
+  BaseApp({
+    globalData: {},
+    onCreate() {},
+    onDestroy() {},
+  }),
+)
+```
+
+#### Use in page module
+
+```javascript
+import { BasePage } from '@zeppos/zml/base-page'
+Page(
+  BasePage({
+    build() {},
+
+    onInit() {
+      this.getDataFromMobile()
+    },
+
+    getDataFromMobile() {
+      return this.request({
+        method: 'your.method1',
+        params: {
+          param1: 'param1',
+          param2: 'param2',
+        },
+      })
+        .then((result) => {
+          // receive your data
+          console.log('result=>', result)
+        })
+        .catch((error) => {
+          // receive your error
+          console.error('error=>', error)
+        })
+    },
+    notifyMobile() {
+      this.call({
+        method: 'your.method3',
+        params: {
+          param1: 'param1',
+          param2: 'param2',
+        },
+      })
+    },
+    onRequest(req, res) {
+      // need reply
+      // node style callback
+      // first param is error
+      // second param is your data
+      if (req.method === 'your.method2') {
+        // do something
+        console.log('req=>', JSON.string(req))
+        res(null, {
+          test: 1,
+        })
+      } else {
+        res('error happened')
+      }
+    },
+    onCall(data) {
+      // no reply
+      if (req.method === 'your.method4') {
+        // do something
+        console.log('req=>', JSON.string(data))
+      }
+    },
+    onDestroy() {
+      console.log('page onDestroy invoked')
+    },
+  }),
+)
+```
+
+#### Use in sideService module
+
+```javascript
+import { BaseSideService } from '@zeppos/zml/base-side'
+
+AppSideService(
+  BaseSideService({
+    onInit() {
+
+    },
+    onRun() {
+
+    },
+    getDataFromDevice() {
+      return this.request({
+        method: 'your.method2',
+        params: {
+          param1: 'param1',
+          param2: 'param2'
+        }
+      })
+        .then((result) => {
+          // receive your data
+          console.log('result=>', result)
+        })
+        .catch((error) => {
+          // receive your error
+          console.error('error=>', error)
+        })
+    },
+    notifyDevice() {
+      this.call({
+        method: 'your.method4',
+        params: {
+          param1: 'param1',
+          param2: 'param2'
+        }
+      })
+    },
+    onRequest(req, res) {
+      // need reply
+      // node style callback
+      // first param is error
+      // second param is your data
+      if (req.method === 'your.method1') {
+        // do something
+        res(null, {
+          test: 1
+        })
+      } else {
+        res('error happened')
+      }
+    },
+    onCall(data) {
+      onCall(data) {
+      // no reply
+      if (req.method === 'your.method3') {
+        // do something
+      }
+    },
+
+    },
+    onDestroy() {
+
+    }
+  }),
+)
+```
+See [examples/helloworld2](https://github.com/zepp-health/zml/tree/main/examples/helloworld2)
+
+
+### More complex example
+
+See [examples/helloworld3](https://github.com/zepp-health/zml/tree/main/examples/helloworld3)
