@@ -10,9 +10,14 @@ This library requires **API_LEVEL 3.0 or above**.
 
 ## Usage
 
-### httpRequest API
+### Direct APIs
 
-Use http requests directly
+Direct apis include: 
+* http requests
+* downloading file
+* receiving file
+* download and receive file
+* get settings for specific keys
 
 #### Use in app.js
 
@@ -56,6 +61,60 @@ Page(
           console.error('error=>', error)
         })
     },
+
+    downloadYourFile() {
+      return this.download('your download url')
+        .then((result) => {
+          console.log('file downloaded successfully')
+        })
+        .catch((error) => {
+          console.error('Error while downloading file=>', error)
+        })
+    },
+
+    receiveYourFile() {
+      return this.receiveFile('file path', {
+        type: 'file type',
+        name: 'file path'
+      })
+        .then((result) => {
+          console.log('file transferred successfully')
+        })
+        .catch((error) => {
+          console.error('Error while transferring file=>', error)
+        })
+    },
+
+    downloadAndTransferYourFile() {
+      return this.download('file path', {
+        transfer: {
+          path: 'file path',
+          opts: {
+            type: 'file type',
+            name: 'file path'
+          }
+        }
+      })
+        .then((result) => {
+          console.log('file downloaded and transferred successfully')
+        })
+        .catch((error) => {
+          console.error('Error while downloading/transferring file=>', error)
+        })
+    },
+
+    getSettings() {
+      return this.getSettings(['setting1', 'setting2'])
+        .then((result) => {
+          console.log('settings received successfully')
+          const settings1 = result.settings1
+          const settings2 = result.settings2
+        })
+        .catch((error) => {
+          console.error('Error while retrieving settings=>', error)
+        })
+    },
+    
     onDestroy() {
       console.log('page onDestroy invoked')
     },
