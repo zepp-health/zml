@@ -289,6 +289,18 @@ export class MessageBuilder extends EventBus {
     this.on('response', (resp) => {
       this.onResponse(resp)
     })
+
+    ble?.addListener((status) => {
+      DEBUG && logger.debug('ble change to=>', status)
+
+      if (!status) {
+        logger.error('ble disconnect')
+        this.shakeTask.reject(
+          new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect'),
+        )
+        this.shakeStatus = ShakeStatus.failure
+      }
+    })
   }
 
   fork(timeout = MessageShakeTimeOut) {
@@ -307,6 +319,17 @@ export class MessageBuilder extends EventBus {
         new MessageError(MessageErrorCode.SHAKE_TIME_OUT, 'shake timeout'),
       )
     }, timeout)
+
+    try {
+      this.errorIfBleDisconnect()
+    } catch (error) {
+      logger.error('error ble disconnect %j', error)
+      this.shakeTask.reject(
+        new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect'),
+      )
+      this.shakeStatus = ShakeStatus.failure
+      return this.waitingShakePromise
+    }
 
     this.shakeStatus = ShakeStatus.pending
     this.sendShake()
@@ -444,7 +467,7 @@ export class MessageBuilder extends EventBus {
   }
 
   sendShake() {
-    DEBUG && logger.info('shake send')
+    DEBUG && logger.debug('shake send')
     const shake = this.buildShake()
     this.sendMsg(shake)
   }
@@ -967,6 +990,7 @@ export class MessageBuilder extends EventBus {
     }
 
     const isBleConnected = this.ble.connectStatus()
+    DEBUG && logger.debug('isBleConnected=>', isBleConnected)
 
     if (!isBleConnected) {
       throw new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect')
@@ -1057,12 +1081,15 @@ export class MessageBuilder extends EventBus {
     try {
       this.errorIfBleDisconnect()
     } catch (error) {
+      logger.error('error ble disconnect %j', error)
       return Promise.reject(error)
     }
 
     const requestTask = () => {
       this.errorIfBleDisconnect()
       this.errorIfSideServiceDisconnect()
+
+      DEBUG && logger.debug('request start %j', data)
 
       let contentType = DataType.bin
 
