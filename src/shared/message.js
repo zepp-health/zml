@@ -295,10 +295,12 @@ export class MessageBuilder extends EventBus {
 
       if (!status) {
         logger.error('ble disconnect')
-        this.shakeTask.reject(
-          new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect'),
-        )
-        this.shakeStatus = ShakeStatus.failure
+        if (this.shakeTask) {
+          this.shakeTask.reject(
+            new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect'),
+          )
+          this.shakeStatus = ShakeStatus.failure
+        }
       }
     })
   }
