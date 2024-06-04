@@ -26,6 +26,7 @@ export function getFileTransfer(fileTransfer) {
         const file = fileTransfer.inbox.getNextFile()
         cb && cb(file)
       })
+
       return this
     },
     onSideServiceFileFinished(cb) {

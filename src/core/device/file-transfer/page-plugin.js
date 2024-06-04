@@ -1,20 +1,10 @@
-import { fileTransferLib } from './device-file-transfer.js'
-
-export function appPlugin(opts) {
-  return {
-    onCreate() {
-      fileTransferLib.onFile(this.onReceivedFile?.bind(this))
-    },
-    onDestroy() {
-      fileTransferLib.offFile()
-    },
-    sendFile(path, opts) {
-      return fileTransferLib.sendFile(path, opts)
-    },
-  }
+function getFileTransferLib() {
+  const { fileTransferLib } = getApp()._options.globalData
+  return fileTransferLib
 }
 
 export function pagePlugin(opts) {
+  const fileTransferLib = getFileTransferLib()
   return {
     onInit() {
       this._onReceivedFile = this.onReceivedFile?.bind(this)
