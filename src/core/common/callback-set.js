@@ -16,14 +16,7 @@ export class CallbackSet {
 
   remove(cb) {
     if (cb) {
-      let res = this.set.delete(cb)
-      if (!res) {
-        console.log("remove error")
-      } else {
-        console.log("remove success")
-      }
-
-      console.log("set count=>", this.set.size)
+      this.set.delete(cb)
     } else {
       this.set.clear()
     }
