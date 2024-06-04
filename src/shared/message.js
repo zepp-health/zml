@@ -86,7 +86,9 @@ export const MessagePayloadOpCode = {
 
 let traceId = 10000
 export function genTraceId() {
-  return traceId++
+  const r = traceId++
+  DEBUG && logger.debug('get requestId %d', r)
+  return r
 }
 
 let spanId = 1000
@@ -1092,8 +1094,6 @@ export class MessageBuilder extends EventBus {
       this.errorIfBleDisconnect()
       this.errorIfSideServiceDisconnect()
 
-      DEBUG && logger.debug('request start %j', data)
-
       let contentType = DataType.bin
 
       if (typeof data === 'string') {
@@ -1122,7 +1122,7 @@ export class MessageBuilder extends EventBus {
         timer = null
 
         requestPromiseTask.reject(
-          new MessageError(MessageErrorCode.TIMEOUT, 'request timeout'),
+          new MessageError(MessageErrorCode.REQUEST_TIME_OUT, `request id=${requestId} timeout in ${opts.timeout}ms`),
         )
       }, opts.timeout)
 
@@ -1168,6 +1168,7 @@ export class MessageBuilder extends EventBus {
 
       this.handlers.set(requestId, transact)
 
+      DEBUG && logger.debug('request id=%d start %j', requestId, data)
       if (Buffer.isBuffer(data)) {
         this.sendBuf({
           requestId,
@@ -1216,13 +1217,17 @@ export class MessageBuilder extends EventBus {
 
       return requestPromiseTask.promise
         .catch((e) => {
-          DEBUG && logger.error('error %j', e)
+          logger.error('request id=%d %d %j', requestId, e.code, e.reason)
           throw e
         })
         .finally(() => {
-          DEBUG && logger.debug('release request id=>%d', requestId)
           cancelTimer()
-          this.handlers.delete(requestId)
+          if (this.handlers.get(requestId)) {
+            DEBUG && logger.debug('release request id=>%d', requestId)
+            this.handlers.delete(requestId)
+          } else {
+            logger.warn('release request id=>%d error', requestId)
+          }
         })
     }
 

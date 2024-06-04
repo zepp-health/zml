@@ -3,6 +3,7 @@ import { isZeppOS } from './common.js'
 import { MessagePayloadDataTypeOp } from '../../shared/message.js'
 import { buf2str, buf2json, buf2bin } from '../../shared/data.js'
 import { isPlainObject } from '../../shared/utils.js'
+import { CallbackSet } from './callback-set.js'
 
 const logger = Logger.getLogger('message-builder')
 
@@ -13,6 +14,9 @@ const DEBUG = __DEBUG__
 
 const HM_RPC = 'hmrpcv1'
 
+const onCalls = new CallbackSet()
+const onRequests = new CallbackSet()
+
 export function wrapperMessage(messageBuilder) {
   return {
     shakeTimeout,
@@ -20,27 +24,17 @@ export function wrapperMessage(messageBuilder) {
     transport: messageBuilder,
     onCall(cb) {
       if (!cb) return this
-      messageBuilder.on('call', ({ contentType, payload }) => {
-        switch (contentType) {
-          case MessagePayloadDataTypeOp.JSON:
-            payload = buf2json(payload)
-            break
-          case MessagePayloadDataTypeOp.TEXT:
-            payload = buf2str(payload)
-            break
-          case MessagePayloadDataTypeOp.BIN:
-          default:
-            payload = buf2bin(payload)
-            break
-        }
-
-        cb && cb(payload)
-      })
-
+      DEBUG && logger.debug('register call handler=>%s', cb.toString())
+      onCalls.add(cb)
       return this
     },
     offOnCall(cb) {
-      messageBuilder.off('call', cb)
+      onCalls.remove(cb)
+      DEBUG &&
+        logger.debug(
+          'unregister call handler=>%s',
+          (cb ?? 'undefined').toString(),
+        )
       return this
     },
     call(data) {
@@ -57,6 +51,29 @@ export function wrapperMessage(messageBuilder) {
     },
     onRequest(cb) {
       if (!cb) return this
+      onRequests.add(cb)
+      return this
+    },
+    initOnCall() {
+      messageBuilder.on('call', ({ contentType, payload }) => {
+        switch (contentType) {
+          case MessagePayloadDataTypeOp.JSON:
+            payload = buf2json(payload)
+            break
+          case MessagePayloadDataTypeOp.TEXT:
+            payload = buf2str(payload)
+            break
+          case MessagePayloadDataTypeOp.BIN:
+          default:
+            payload = buf2bin(payload)
+            break
+        }
+
+        DEBUG && logger.debug('onCall data=>%s', payload)
+        onCalls.runAll(payload)
+      })
+    },
+    initOnRequest() {
       messageBuilder.on('request', (ctx) => {
         let payload = ctx.request.payload
 
@@ -73,44 +90,42 @@ export function wrapperMessage(messageBuilder) {
             break
         }
 
-        cb &&
-          cb(payload, (error, data, opts = {}) => {
-            if (
-              ctx.request.contentType === MessagePayloadDataTypeOp.JSON &&
-              payload?.jsonrpc === HM_RPC
-            ) {
-              if (error) {
-                return ctx.response({
-                  data: {
-                    jsonrpc: HM_RPC,
-                    error,
-                  },
-                })
-              }
-
+        DEBUG && logger.debug('request data=>%s', payload)
+        onRequests.runAll(payload, (error, data, opts = {}) => {
+          if (
+            ctx.request.contentType === MessagePayloadDataTypeOp.JSON &&
+            payload?.jsonrpc === HM_RPC
+          ) {
+            if (error) {
               return ctx.response({
                 data: {
                   jsonrpc: HM_RPC,
-                  result: data,
+                  error,
                 },
               })
             }
 
             return ctx.response({
-              data,
-              ...opts,
+              data: {
+                jsonrpc: HM_RPC,
+                result: data,
+              },
             })
-          })
-      })
+          }
 
-      return this
+          return ctx.response({
+            data,
+            ...opts,
+          })
+        })
+      })
     },
     cancelAllRequest() {
       messageBuilder.off('response')
       return this
     },
     offOnRequest(cb) {
-      messageBuilder.off('request', cb)
+      onRequests.remove(cb)
       return this
     },
     request(data, opts = {}) {
@@ -154,6 +169,9 @@ export function wrapperMessage(messageBuilder) {
       messageBuilder.connect(() => {
         DEBUG &&
           logger.debug('DeviceApp messageBuilder connect with SideService')
+
+        this.initOnCall()
+        this.initOnRequest()
       })
       return this
     },
@@ -173,6 +191,8 @@ export function wrapperMessage(messageBuilder) {
           logger.debug(
             'SideService messageBuilder start to listen to DeviceApp',
           )
+        this.initOnCall()
+        this.initOnRequest()
       })
       return this
     },

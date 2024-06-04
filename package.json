@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "rollup -w -c rollup.config.mjs",
     "build": "NODE_ENV=production rollup -c rollup.config.mjs",
+    "build:debug": "rollup -c rollup.config.mjs",
     "format": "prettier src -write",
     "test": "node --import ./env/zeppos-env.js  --test src",
     "docs:dev": "vitepress dev docs",
