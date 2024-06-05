@@ -1,4 +1,7 @@
 import { httpRequest } from './httpRequest.js'
+import { download } from './download.js'
+import { receiveFile } from './receiveFile.js'
+import { getSettings } from './getSettings.js'
 
 function getDeviceMessage() {
   const { messaging } = getApp()._options.globalData
@@ -30,6 +33,9 @@ export function pagePlugin(opts) {
       return this.messaging.call(data)
     },
     httpRequest,
+    download,
+    receiveFile,
+    getSettings,
   }
 }
 
