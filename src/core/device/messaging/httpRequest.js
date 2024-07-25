@@ -1,5 +1,5 @@
 export function httpRequest(data, opts = {}) {
-  return this.messaging.request(
+  return this.request(
     {
       method: 'http.request',
       params: data,
