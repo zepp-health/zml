@@ -99,3 +99,13 @@ export function isZeppOS() {
 export function isSideService() {
   return typeof messaging !== 'undefined'
 }
+
+let zosApp = null
+
+if (isZeppOS1()) {
+  zosApp = hmApp
+} else if (isZeppOS2()) {
+  zosApp = _r('@zos/app')
+}
+
+export { zosApp }
