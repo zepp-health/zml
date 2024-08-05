@@ -6,7 +6,7 @@ stages:
   - deploy
 
 default:
-  image: 'node:18'
+  image: 'gitlab.huami.com:5050/cicd/ci-scripts/node:20'
   tags:
     - cn
   interruptible: true
