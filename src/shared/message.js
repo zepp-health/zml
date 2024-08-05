@@ -304,6 +304,13 @@ export class MessageBuilder extends EventBus {
           )
           this.shakeStatus = ShakeStatus.failure
         }
+
+        for(const [_, v] of Object.entries(this.handlers)) {
+          v.task.reject(
+            new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect')
+          )
+        }
+        this.handlers.clear()
       }
     })
   }
@@ -1020,7 +1027,7 @@ export class MessageBuilder extends EventBus {
   }
 
   onResponse(fullPayload) {
-    const handler = this.handlers.get(fullPayload.traceId)
+    const handler = this.handlers.get(fullPayload.traceId).handler
     handler && handler(fullPayload)
   }
 
@@ -1166,7 +1173,7 @@ export class MessageBuilder extends EventBus {
         requestPromiseTask.resolve(result)
       }
 
-      this.handlers.set(requestId, transact)
+      this.handlers.set(requestId, { handler: transact, task: requestPromiseTask })
 
       DEBUG && logger.debug('request id=%d start %j', requestId, data)
       if (Buffer.isBuffer(data)) {
