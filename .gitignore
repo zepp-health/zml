@@ -134,3 +134,5 @@ yarn.lock
 
 docs/.vitepress/dist
 docs/.vitepress/cache
+bookmark-manager.json
+.idea

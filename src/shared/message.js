@@ -472,7 +472,7 @@ export class MessageBuilder extends EventBus {
   }
 
   sendShake() {
-    DEBUG && logger.debug('shake send')
+    logger.info('shake send')
     const shake = this.buildShake()
     this.sendMsg(shake)
   }
@@ -955,7 +955,7 @@ export class MessageBuilder extends EventBus {
     DEBUG && logger.debug('receive data=>', JSON.stringify(data))
     if (data.flag === MessageFlag.App && data.type === MessageType.Shake) {
       this.appSidePort = data.port2
-      DEBUG && logger.debug('shake success appSidePort=>', data.port2)
+      logger.info('shake success appSidePort=>', data.port2)
       this.emit('shake:response', data)
       this.clearShakeTimer()
       this.shakeTask.resolve()
@@ -1160,15 +1160,14 @@ export class MessageBuilder extends EventBus {
             break
         }
 
-        DEBUG && logger.debug('request id=>%d payload=>%j', requestId, data)
-        DEBUG && logger.debug('response id=>%d payload=>%j', requestId, result)
+        logger.info('response id=>%d', requestId)
 
         requestPromiseTask.resolve(result)
       }
 
       this.handlers.set(requestId, transact)
 
-      DEBUG && logger.debug('request id=%d start %j', requestId, data)
+      logger.info('request id=%d', requestId)
       if (Buffer.isBuffer(data)) {
         this.sendBuf({
           requestId,
