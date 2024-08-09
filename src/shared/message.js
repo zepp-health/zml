@@ -101,7 +101,7 @@ export function getTimestamp(t = Date.now()) {
 }
 
 class Session extends EventBus {
-  constructor(id, type, ctx) {
+  constructor(id, type, size, ctx) {
     super()
     this.id = id
     this.type = type // payloadType
@@ -109,9 +109,12 @@ class Session extends EventBus {
     this.chunks = []
     this.count = -1
     this.finishChunk = null
+    this.size = size
+    this.receivedSize = 0
   }
 
   addChunk(payload) {
+    this.receivedSize += payload.payloadLength
     if (payload.opCode === MessagePayloadOpCode.Finished) {
       this.count = payload.seqId + 1
       this.finishChunk = payload
@@ -140,6 +143,9 @@ class Session extends EventBus {
   checkIfReceiveAllChunks() {
     if (this.count !== this.chunks.length) return
     if (!this.finishChunk) return
+    if (this.size !== this.receivedSize) return
+
+    this.chunks.sort((a, b) => a.seqId - b.seqId)
 
     let bufList = []
 
@@ -185,6 +191,8 @@ class Session extends EventBus {
     this.chunks = []
     this.finishChunk = null
     this.count = 0
+    this.size = 0
+    this.receivedSize = 0
   }
 }
 
@@ -197,8 +205,8 @@ class SessionMgr {
     return `${session.id}:${session.type}`
   }
 
-  newSession(id, type, ctx) {
-    const newSession = new Session(id, type, ctx)
+  newSession(id, type, size ,ctx) {
+    const newSession = new Session(id, type, size ,ctx)
     this.sessions.set(this.key(newSession), newSession)
     return newSession
   }
@@ -1032,6 +1040,7 @@ export class MessageBuilder extends EventBus {
       session = this.sessionMgr.newSession(
         payload.traceId,
         payload.payloadType,
+        payload.totalLength,
         this,
       )
 
