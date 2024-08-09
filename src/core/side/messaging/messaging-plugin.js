@@ -1,5 +1,9 @@
 import { messaging } from './side-message.js'
 
+function formatTime(date) {
+  return date.toTimeString().split(' ')[0];
+}
+
 function addBaseURL(opts) {
   const params = {
     timeout: 10000,
@@ -51,6 +55,7 @@ export function messagingPlugin() {
       return fetch(addBaseURL(opt))
     },
     httpRequestHandler(req, res) {
+      const start = new Date()
       return this.fetch(req.params)
         .then((result) => {
           res(null, {
@@ -61,10 +66,15 @@ export function messagingPlugin() {
           })
         })
         .catch((e) => {
+          this.error('http error url=%s', req.params.url, e.message)
           return res({
             code: 1,
             message: e.message,
           })
+        })
+        .finally(() => {
+          const end =  new Date()
+          this.log('http url=%s %d %d elapsed=%dms', req.params.url, formatTime(start), formatTime(end), end.getTime() - start.getTime())
         })
     },
   }
