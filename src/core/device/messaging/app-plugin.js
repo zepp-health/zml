@@ -23,10 +23,15 @@ export function appPlugin(opts) {
       this.messaging = this.globalData.messaging = messaging
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
-      this.messaging.onCall(this._onCall).onRequest(this._onRequest).connect()
+      this._onBleChanged = this.onBleChanged?.bind(this)
+      this.messaging
+        .onCall(this._onCall)
+        .onRequest(this._onRequest)
+        .onBleChanged(this._onBleChanged)
+        .connect()
     },
     onDestroy() {
-      this.messaging.offOnCall().offOnRequest().disConnect()
+      this.messaging.offOnCall().offOnRequest().offOnBleChanged().disConnect()
     },
     request(data, opts = {}) {
       const defer = Deferred()

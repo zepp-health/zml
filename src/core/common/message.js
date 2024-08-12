@@ -16,6 +16,7 @@ const HM_RPC = 'hmrpcv1'
 
 const onCalls = new CallbackSet()
 const onRequests = new CallbackSet()
+const onBleChanges = new CallbackSet()
 
 export function wrapperMessage(messageBuilder) {
   return {
@@ -172,13 +173,29 @@ export function wrapperMessage(messageBuilder) {
 
         this.initOnCall()
         this.initOnRequest()
+        this.initOnBleChanged()
       })
+    },
+    initOnBleChanged() {
+      messageBuilder.on('bleStatusChanged', (status) => {
+        onBleChanges.runAll(status)
+      })
+      return this
+    },
+    onBleChanged(cb) {
+      if (!cb) return this
+      onBleChanges.add(cb)
+      return this
+    },
+    offOnBleChanged(cb) {
+      onBleChanges.remove(cb)
       return this
     },
     disConnect() {
       this.cancelAllRequest()
       this.offOnRequest()
       this.offOnCall()
+      this.offOnBleChanged()
       messageBuilder.disConnect(() => {
         DEBUG && logger.debug('DeviceApp messageBuilder disconnect SideService')
       })
