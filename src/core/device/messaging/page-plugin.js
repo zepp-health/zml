@@ -27,7 +27,11 @@ export function pagePlugin(opts) {
       this.messaging = this.state.messaging = messaging
       this._onCall = this.onCall?.bind(this)
       this._onRequest = this.onRequest?.bind(this)
-      this.messaging.onCall(this._onCall).onRequest(this._onRequest)
+      this._onBleChanged = this.onBleChanged?.bind(this)
+      this.messaging
+        .onCall(this._onCall)
+        .onRequest(this._onRequest)
+        .onBleChanged(this._onBleChanged)
     },
     onDestroy() {
       if (this._onCall) {
@@ -36,6 +40,10 @@ export function pagePlugin(opts) {
 
       if (this._onRequest) {
         this.messaging.offOnRequest(this._onRequest)
+      }
+
+      if (this._onBleChanged) {
+        this.messaging.offOnBleChanged(this._onBleChanged)
       }
     },
     request(data, opts = {}) {

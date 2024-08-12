@@ -302,6 +302,10 @@ export class MessageBuilder extends EventBus {
     })
 
     ble?.addListener((status) => {
+      this.emit('bleStatusChanged', status)
+    })
+
+    this.on('bleStatusChanged', (status) => {
       DEBUG && logger.debug('ble change to=>', status)
 
       if (!status) {
