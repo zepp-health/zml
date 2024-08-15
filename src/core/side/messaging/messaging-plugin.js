@@ -74,7 +74,7 @@ export function messagingPlugin() {
         })
         .finally(() => {
           const end =  new Date()
-          this.log('http url=%s %d %d elapsed=%dms', req.params.url, formatTime(start), formatTime(end), end.getTime() - start.getTime())
+          this.log('http url=%s %s %s elapsed=%dms', req.params.url, formatTime(start), formatTime(end), end.getTime() - start.getTime())
         })
     },
   }
