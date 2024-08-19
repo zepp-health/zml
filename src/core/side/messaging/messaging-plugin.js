@@ -1,7 +1,7 @@
 import { messaging } from './side-message.js'
 
 function formatTime(date) {
-  return date.toTimeString().split(' ')[0];
+  return date.toTimeString().split(' ')[0]
 }
 
 function addBaseURL(opts) {
@@ -66,15 +66,22 @@ export function messagingPlugin() {
           })
         })
         .catch((e) => {
-          this.error('http error url=%s', req.params.url, e.message)
+          this.error('http error url=%s', req.params.url, e.message, e.data)
           return res({
-            code: 1,
+            code: e.code,
             message: e.message,
+            data: e.data,
           })
         })
         .finally(() => {
-          const end =  new Date()
-          this.log('http url=%s %d %d elapsed=%dms', req.params.url, formatTime(start), formatTime(end), end.getTime() - start.getTime())
+          const end = new Date()
+          this.log(
+            'http url=%s %s %s elapsed=%dms',
+            req.params.url,
+            formatTime(start),
+            formatTime(end),
+            end.getTime() - start.getTime(),
+          )
         })
     },
   }
