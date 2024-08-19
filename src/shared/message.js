@@ -205,8 +205,8 @@ class SessionMgr {
     return `${session.id}:${session.type}`
   }
 
-  newSession(id, type, size ,ctx) {
-    const newSession = new Session(id, type, size ,ctx)
+  newSession(id, type, size, ctx) {
+    const newSession = new Session(id, type, size, ctx)
     this.sessions.set(this.key(newSession), newSession)
     return newSession
   }
@@ -1135,7 +1135,10 @@ export class MessageBuilder extends EventBus {
         timer = null
 
         requestPromiseTask.reject(
-          new MessageError(MessageErrorCode.REQUEST_TIME_OUT, `request id=${requestId} timeout in ${opts.timeout}ms`),
+          new MessageError(
+            MessageErrorCode.REQUEST_TIME_OUT,
+            `request id=${requestId} timeout in ${opts.timeout}ms`,
+          ),
         )
       }, opts.timeout)
 
