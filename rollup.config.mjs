@@ -27,14 +27,13 @@ const dist1 = 'dist/1.0/'
 const dist2 = 'dist/2.0/'
 const dist3 = 'dist/3.0/'
 
-const srcMetrics = 'src/core/device/metrics/'
-const distMetrics = 'dist/metrics/'
-const metricsConfig = ['index.js', 'sp.js'].map((file) => {
-  return {
-    input: srcMetrics + file,
+export default [
+  /* #region  metrics functions */
+  {
+    input: 'src/core/device/metrics/index.js',
     output: [
       {
-        file: distMetrics + file,
+        file: 'dist/metrics.js',
         format: 'es',
         plugins,
       },
@@ -48,12 +47,7 @@ const metricsConfig = ['index.js', 'sp.js'].map((file) => {
       nodeResolve(),
       commonjs(),
     ],
-  }
-})
-
-export default [
-  /* #region  metrics functions */
-  ...metricsConfig,
+  },
   /* #endregion */
   /* #region  zml app 3.0 */
   {

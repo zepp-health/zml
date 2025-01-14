@@ -12,6 +12,7 @@
     "./base-app": "./dist/zml-app.js",
     "./base-page": "./dist/zml-page.js",
     "./base-side": "./dist/zml-side.js",
+    "/metrics": "./dist/metrics.js",
     "./*": "./dist/*.js"
   },
   "files": [
