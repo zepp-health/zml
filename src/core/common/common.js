@@ -5,7 +5,7 @@ let _r = null
 if (typeof __$$R$$__ !== 'undefined') {
   _r = __$$R$$__
 } else {
-  _r = () => {}
+  _r = () => { }
 }
 
 export { _r }
@@ -31,6 +31,15 @@ if (isZeppOS1()) {
 
 export { ui }
 
+let _px = null
+if (isZeppOS1()) {
+  _px = px
+} else {
+  _px = _r('@zos/utils').px
+}
+
+export { _px }
+
 let getDeviceInfo = null
 
 if (isZeppOS1()) {
@@ -47,8 +56,8 @@ if (isZeppOS1()) {
     typeof __$$app$$__ !== 'undefined'
       ? __$$app$$__?.__globals__?.gettext
       : function () {
-          throw new Error(`zeppos 1.0 required: import { gettext } from 'i18n'`)
-        }
+        throw new Error(`zeppos 1.0 required: import { gettext } from 'i18n'`)
+      }
 } else if (isZeppOS2()) {
   getText = _r('@zos/i18n').getText
 }
