@@ -28,6 +28,27 @@ const dist2 = 'dist/2.0/'
 const dist3 = 'dist/3.0/'
 
 export default [
+  /* #region  metrics functions */
+  {
+    input: 'src/core/device/metrics/index.js',
+    output: [
+      {
+        file: 'dist/metrics.js',
+        format: 'es',
+        plugins,
+      },
+    ],
+    plugins: [
+      replace({
+        preventAssignment: true,
+        __DEBUG__: process.env.NODE_ENV === 'production' ? undefined : true,
+        __API_LEVEL__: `'3.0'`,
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  /* #endregion */
   /* #region  zml app 3.0 */
   {
     input: 'src/core/device/zml-app.js',
