@@ -1,5 +1,5 @@
-import { spx } from './sp.js'
+import { sp } from './sp.js'
 
 export default {
-  spx,
+  sp,
 }
