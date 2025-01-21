@@ -1,5 +1,5 @@
 import { sp } from './sp.js'
 
-export default {
+export {
   sp,
 }
