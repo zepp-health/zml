@@ -1,4 +1,4 @@
-import { _r } from '../../common/common.js'
+import { _r } from '../../../shared/platform.js'
 import { stringify } from '../../common/qs.js'
 import { Permission } from '../permission/permission.js'
 const { showToast } = _r('@zos/interaction')

@@ -3,7 +3,7 @@ import {
   isZeppOS2,
   isSideService,
   _r,
-} from '../core/common/common.js'
+} from '../shared/platform.js'
 
 let logger = null
 

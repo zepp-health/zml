@@ -1,14 +1,4 @@
-import { isHmAppDefined } from '../../shared/utils.js'
-
-let _r = null
-
-if (typeof __$$R$$__ !== 'undefined') {
-  _r = __$$R$$__
-} else {
-  _r = () => { }
-}
-
-export { _r }
+import { isZeppOS1, isZeppOS2, _r } from '../../shared/platform.js'
 
 let getPackageInfo = null
 
@@ -56,8 +46,8 @@ if (isZeppOS1()) {
     typeof __$$app$$__ !== 'undefined'
       ? __$$app$$__?.__globals__?.gettext
       : function () {
-        throw new Error(`zeppos 1.0 required: import { gettext } from 'i18n'`)
-      }
+          throw new Error(`zeppos 1.0 required: import { gettext } from 'i18n'`)
+        }
 } else if (isZeppOS2()) {
   getText = _r('@zos/i18n').getText
 }
@@ -74,40 +64,7 @@ if (isZeppOS1()) {
 
 export { push }
 
-let nativeBle = null
 
-if (isZeppOS1()) {
-  nativeBle = hmBle
-} else if (isZeppOS2()) {
-  nativeBle = _r('@zos/ble')
-  // nativeBle = bleModule
-}
-
-export { nativeBle }
-
-export function isZeppOS1() {
-  return isZeppOS() && isAPILevel1()
-}
-
-export function isZeppOS2() {
-  return isZeppOS() && isAPILevel2()
-}
-
-export function isAPILevel1() {
-  return isHmAppDefined()
-}
-
-export function isAPILevel2() {
-  return typeof __$$R$$__ !== 'undefined'
-}
-
-export function isZeppOS() {
-  return isAPILevel1() || isAPILevel2()
-}
-
-export function isSideService() {
-  return typeof messaging !== 'undefined'
-}
 
 let zosApp = null
 

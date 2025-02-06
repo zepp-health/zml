@@ -1,4 +1,4 @@
-import { _r } from '../core/common/common.js'
+import { _r } from '../shared/platform.js'
 
 const _setTimeout = _r('@zos/timer').setTimeout
 const _clearTimeout = _r('@zos/timer').clearTimeout

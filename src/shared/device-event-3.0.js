@@ -1,3 +1,3 @@
-import { _r } from '../core/common/common.js'
+import { _r } from '../shared/platform'
 
 export const EventBus = _r('@zos/utils').EventBus

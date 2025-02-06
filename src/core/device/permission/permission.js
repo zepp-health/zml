@@ -1,4 +1,4 @@
-import { _r } from '../../common/common.js'
+import { _r } from '../../../shared/platform.js'
 const { queryPermission, requestPermission } = _r('@zos/app')
 const { showToast } = _r('@zos/interaction')
 export class Permission {

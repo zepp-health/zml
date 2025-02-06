@@ -1,5 +1,5 @@
 import { getFileTransfer } from '../../common/file-transfer.js'
-import { _r } from '../../common/common.js'
+import { _r } from '../../../shared/platform.js'
 
 const TransferFile = _r('@zos/ble/TransferFile')
 export const fileTransferLib = getFileTransfer(
