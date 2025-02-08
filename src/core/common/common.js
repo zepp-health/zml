@@ -21,6 +21,16 @@ if (isZeppOS1()) {
 
 export { ui }
 
+let setting = null
+
+if (isZeppOS1()) {
+  setting = hmSetting
+} else if (isZeppOS2()) {
+  setting = _r('@zos/settings')
+}
+
+export { setting }
+
 let _px = null
 if (isZeppOS1()) {
   _px = px
