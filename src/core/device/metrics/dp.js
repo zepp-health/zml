@@ -1,5 +1,5 @@
 import { setting } from '../../common/common.js'
-const settingInfo = setting.getFontSizeInfo()
+const settingInfo = (setting.getFontSizeInfo ?? (() => ({ DPIFactor: 1 })))()
 
 export function dp(num) {
   return {
