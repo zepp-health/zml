@@ -6,7 +6,7 @@ stages:
   - deploy
 
 default:
-  image: 'gitlab.huami.com:5050/cicd/ci-scripts/node:20'
+  image: 'gitlab.huami.com:5050/cicd/ci-scripts/pnpm9-node:22'
   tags:
     - cn
   interruptible: true
@@ -17,9 +17,9 @@ build:
   stage: build
   script:
     # - npm ci --cache .npm --prefer-offline --no-optional
-    - echo "yarn install dependencies"
-    - yarn install --ignore-optional --frozen-lockfile --cache-folder .yarn
-    - yarn build
+    - echo "pnpm install dependencies"
+    - pnpm install --frozen-lockfile
+    - pnpm run build
     - echo "This job builds done."
   artifacts:
     name: dist
