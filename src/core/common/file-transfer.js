@@ -1,9 +1,13 @@
+import { CallbackSet } from './callback-set'
+
 export function getFileTransfer(fileTransfer) {
   /**
    *     start(newfile)------------finished(file)
    *     device supported newfile and file
    *     side supported file
    */
+
+  let onFileCalls = new CallbackSet()
   return {
     canUseFileTransfer() {
       if (typeof fileTransfer === 'undefined') {
@@ -21,10 +25,12 @@ export function getFileTransfer(fileTransfer) {
         return this
       }
 
+      onFileCalls.add(cb)
+
       // at file task start
       fileTransfer.inbox.on('newfile', function () {
         const file = fileTransfer.inbox.getNextFile()
-        cb && cb(file)
+        onFileCalls.runAll(file)
       })
 
       return this
@@ -38,10 +44,12 @@ export function getFileTransfer(fileTransfer) {
         return this
       }
 
+      onFileCalls.add(cb)
+
       // at file task finished
       fileTransfer.inbox.on('file', function () {
         const file = fileTransfer.inbox.getNextFile()
-        cb && cb(file)
+        onFileCalls.runAll(file)
       })
       return this
     },
@@ -56,6 +64,7 @@ export function getFileTransfer(fileTransfer) {
 
       fileTransfer.inbox.off('newfile')
       fileTransfer.inbox.off('file')
+      onFileCalls.remove()
       return this
     },
     getFile() {
