@@ -16,14 +16,14 @@ function BaseSideService({
     onInit(opts) {
       for (let i = 0; i <= BaseSideService.mixins.length - 1; i++) {
         const m = BaseSideService.mixins[i]
-        m & m.handler.onInit?.apply(this, opts)
+        m && m.handler.onInit?.apply(this, opts)
       }
       onInit?.apply(this, opts)
     },
     onRun(opts) {
       for (let i = 0; i <= BaseSideService.mixins.length - 1; i++) {
         const m = BaseSideService.mixins[i]
-        m & m.handler.onRun?.apply(this, opts)
+        m && m.handler.onRun?.apply(this, opts)
       }
       onRun?.apply(this, opts)
     },
@@ -32,7 +32,7 @@ function BaseSideService({
 
       for (let i = BaseSideService.mixins.length - 1; i >= 0; i--) {
         const m = BaseSideService.mixins[i]
-        m & m.handler.onDestroy?.apply(this, opts)
+        m && m.handler.onDestroy?.apply(this, opts)
       }
     },
   }

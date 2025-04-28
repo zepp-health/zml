@@ -29,13 +29,16 @@ const pluginService = {
     this.plugins.forEach((p) => {
       if (!p) return
       if (typeof p.handler === 'function') {
-        const result = p.handler.call(this, instance, ...p.args)
-
-        if (typeof result === 'object') {
-          this.mixins.push({
-            handler: result,
-            args: [],
-          })
+        try {
+          const result = p.handler.call(this, instance, ...p.args)
+          if (typeof result === 'object') {
+            this.mixins.push({
+              handler: result,
+              args: [],
+            })
+          }
+        } catch (e) {
+          console.error(`Plugin execution error: ${error.message}`, error)
         }
       }
     })

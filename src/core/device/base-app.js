@@ -9,7 +9,7 @@ function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
     onCreate(...opts) {
       for (let i = 0; i <= BaseApp.mixins.length - 1; i++) {
         const m = BaseApp.mixins[i]
-        m & m.handler.onCreate?.apply(this, opts)
+        m && m.handler.onCreate?.apply(this, opts)
       }
       onCreate?.apply(this, opts)
     },
@@ -17,7 +17,7 @@ function BaseApp({ globalData = {}, onCreate, onDestroy, ...other } = {}) {
       onDestroy?.apply(this, opts)
       for (let i = BaseApp.mixins.length - 1; i >= 0; i--) {
         const m = BaseApp.mixins[i]
-        m & m.handler.onDestroy?.apply(this, opts)
+        m && m.handler.onDestroy?.apply(this, opts)
       }
     },
   }
