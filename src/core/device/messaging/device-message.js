@@ -1,4 +1,4 @@
-import { MessageBuilder } from '../../../shared/message.js'
+import { MessageBuilder } from '../../../shared/message/index.js'
 import { wrapperMessage } from '../../common/message.js'
 import { getPackageInfo } from '../../common/common.js'
 
