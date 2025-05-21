@@ -20,7 +20,7 @@ const pluginService = {
     } else if (typeof plugin === 'object') {
       this.mixins.push({
         handler: plugin,
-        args: [],
+        args,
       })
     }
     return this
@@ -38,7 +38,7 @@ const pluginService = {
             })
           }
         } catch (e) {
-          console.error(`Plugin execution error: ${error.message}`, error)
+          console.error(`Plugin execution error: ${e.message}`, e)
         }
       }
     })
