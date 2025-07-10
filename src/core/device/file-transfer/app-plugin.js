@@ -3,6 +3,7 @@ import { fileTransferLib } from './device-file-transfer.js'
 export function appPlugin(opts) {
   return {
     onCreate() {
+      fileTransferLib.init()
       this.globalData.fileTransferLib = fileTransferLib
       fileTransferLib.onFile(this.onReceivedFile?.bind(this))
     },

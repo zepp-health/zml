@@ -3,6 +3,7 @@ import { fileTransferLib } from './side-file-transfer.js'
 export function fileTransferPlugin() {
   return {
     onInit() {
+      fileTransferLib.init()
       this._onReceivedFile = this.onReceivedFile?.bind(this)
       fileTransferLib.onSideServiceFileFinished(this._onReceivedFile)
 

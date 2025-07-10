@@ -1,4 +1,5 @@
 import { CallbackSet } from './callback-set'
+import { isSideService } from '../../shared/platform'
 
 export function getFileTransfer(fileTransfer) {
   /**
@@ -16,6 +17,25 @@ export function getFileTransfer(fileTransfer) {
       }
       return true
     },
+    init() {
+      if (!this.canUseFileTransfer()) {
+        return
+      }
+
+      if (isSideService()) {
+        // side service
+        fileTransfer.inbox.on('file', function () {
+          const file = fileTransfer.inbox.getNextFile()
+          onFileCalls.runAll(file)
+        })
+      } else {
+        // device app
+        fileTransfer.inbox.on('newfile', function () {
+          const file = fileTransfer.inbox.getNextFile()
+          onFileCalls.runAll(file)
+        })
+      }
+    },
     onFile(cb) {
       if (!cb) {
         return this
@@ -26,13 +46,6 @@ export function getFileTransfer(fileTransfer) {
       }
 
       onFileCalls.add(cb)
-
-      // at file task start
-      fileTransfer.inbox.on('newfile', function () {
-        const file = fileTransfer.inbox.getNextFile()
-        onFileCalls.runAll(file)
-      })
-
       return this
     },
     onSideServiceFileFinished(cb) {
@@ -45,12 +58,6 @@ export function getFileTransfer(fileTransfer) {
       }
 
       onFileCalls.add(cb)
-
-      // at file task finished
-      fileTransfer.inbox.on('file', function () {
-        const file = fileTransfer.inbox.getNextFile()
-        onFileCalls.runAll(file)
-      })
       return this
     },
     emitFile() {
