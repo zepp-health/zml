@@ -9,7 +9,7 @@ export function settingsPlugin() {
 
       if (typeof sideService !== 'undefined') {
         if (sideService.launchReasons.settingsChanged) {
-          this._onSettingsChange(sideService.launchArgs)
+          this._onSettingsChange?.(sideService.launchArgs)
         }
       }
     },
