@@ -317,7 +317,9 @@ export class MessageBuilder extends EventBus {
           this.shakeStatus = ShakeStatus.failure
         }
 
-        for(const [_, v] of Object.entries(this.handlers)) {
+        // handlers is a Map, so Object.entries() is always empty and the
+        // loop never ran, leaving in-flight requests hanging until timeout
+        for (const v of this.handlers.values()) {
           v.task.reject(
             new MessageError(MessageErrorCode.BLE_CLOSE, 'ble disconnect')
           )
@@ -1039,8 +1041,10 @@ export class MessageBuilder extends EventBus {
   }
 
   onResponse(fullPayload) {
-    const handler = this.handlers.get(fullPayload.traceId).handler
-    handler && handler(fullPayload)
+    // a response may arrive late, after the disconnect cleanup cleared
+    // handlers - ignore it instead of throwing on the missing entry
+    const target = this.handlers.get(fullPayload.traceId)
+    target && target.handler && target.handler(fullPayload)
   }
 
   onMessage(messagePayload) {
